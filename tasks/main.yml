@@ -4,8 +4,6 @@
 
 - name: "Deploy services"
   include_tasks: "{{ container }}.yml"
-  loop:
-    - "{{ mandatory_services }}"
-    - "{{ enabled_services | default([]) }}"
+  loop: "{{ mandatory_services + enabled_services }}"
   loop_control:
     loop_var: 'container'
