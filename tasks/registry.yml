@@ -1,0 +1,29 @@
+---
+- name: 'Create directory for container data'
+  file:
+    path: "{{ docker_data_dir }}/{{ dir }}"
+    state: 'directory'
+  loop:
+    - 'registry_data'
+  loop_control:
+    loop_var: 'dir'
+
+- name: 'Deploy Docker Registry'
+  docker_swarm_service:
+    name: 'registry'
+    image: 'registry'
+    mounts:
+      - source: '{{ docker_data_dir }}/registry_data'
+        target: '/var/lib/registry'
+        type: 'bind'
+    networks:
+      - 'traefik_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    labels:
+      traefik.port: '5000'
+      traefik.docker.network: 'traefik_backend'
+      traefik.frontend.rule: "Host: registry.{{ traefik_domain }}"
+    user: null

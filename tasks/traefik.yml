@@ -1,0 +1,70 @@
+---
+- name: 'Create network'
+  docker_network:
+    name: 'traefik_backend'
+    driver: 'overlay'
+
+- name: 'Create directory for container data'
+  file:
+    path: "{{ docker_data_dir }}/{{ dir }}"
+    state: 'directory'
+  loop:
+    - 'traefik_data'
+  loop_control:
+    loop_var: 'dir'
+
+- block:
+  - name: 'Generate SSL key'
+    openssl_privatekey:
+      path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+
+  - name: 'Generate SSL certificate request'
+    openssl_csr:
+      path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
+      privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+      common_name: "*.{{ traefik_domain }}"
+
+  - name: 'Self-sign SSL certificate'
+    openssl_certificate:
+      path: "{{ docker_data_dir }}/traefik_data/traefik.crt"
+      privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+      csr_path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
+      provider: selfsigned
+  when: traefik_selfsign
+
+- name: 'Deploy Traefik'
+  docker_swarm_service:
+    name: 'traefik'
+    image: 'traefik'
+    command:
+      - '/traefik'
+      - '--docker'
+      - '--docker.swarmMode'
+      - "--docker.domain={{ traefik_domain}}"
+      - '--docker.watch'
+      - '--defaultentrypoints=http,https'
+      - '--entryPoints=Name:https Address::443 TLS:/certs/traefik.crt,/certs/traefik.key'
+      - '--entryPoints=Name:http Address::80 Redirect.EntryPoint:https'
+    mounts:
+      - source: '/var/run/docker.sock'
+        target: '/var/run/docker.sock'
+        type: 'bind'
+      - source: '{{ docker_data_dir }}/traefik_data'
+        target: '/certs'
+        type: 'bind'
+    networks:
+      - 'traefik_backend'
+    mode: 'global'
+    restart_config:
+      condition: 'any'
+    publish:
+      - published_port: 80
+        target_port: 80
+      - published_port: 443
+        target_port: 443
+      - published_port: 8080
+        target_port: 8080
+    placement:
+      constraints:
+        - 'node.role == manager'
+    user: null

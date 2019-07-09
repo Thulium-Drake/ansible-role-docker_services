@@ -1,0 +1,9 @@
+---
+- name: 'Set up Docker Swarm'
+  include_tasks: 'docker_swarm.yml'
+
+- name: "Deploy containers"
+  include_tasks: "{{ container }}.yml"
+  loop: "{{ containers }}"
+  loop_control:
+    loop_var: 'container'

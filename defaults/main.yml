@@ -1,0 +1,32 @@
+---
+enabled_services:
+  - 'gitea'
+  - 'drone'
+  - 'registry'
+  - 'awx'
+
+docker_edition: 'ce'
+
+docker_data_dir: '/data/docker/volumes'         # Where to store the volumes on the docker hosts
+                                                # TIP: put them on shared storage, such as NFS or GlusterFS
+
+traefik_domain: 'dckr.example.com'              # Subdomain to put all services under
+traefik_selfsign: True                          # Selfsign the used SSL certificate
+
+portainer_app_name: 'portainer'                 # Service name for Portainer (portainer.dckr.example.com)
+
+db_root_password: 'StoreAllTheData!'            # Databasae root password for all services
+
+gitea_app_name: 'gitea'
+gitea_db_password: 'GitRocksYourSocksOff'
+
+drone_app_name: 'drone'
+drone_db_password: 'NotSoSecretPassword'
+drone_runner_cap: 2                                       # Amount of jobs that can simultaneously run
+drone_agent_rpc_secret: 'AllYourCompileJobsAreBelongToUs' # RPC secret to connect Drone agents
+
+awx_app_name: 'not-tower'
+awx_db_password: 'AutomateAllTheThings!'
+awx_secret_key: 'FasterThenLight'
+
+docker_janitor_delay: 3600                                # Interval for Janitor to run 'docker prune system -f'

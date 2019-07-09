@@ -1,0 +1,138 @@
+---
+- name: 'Create network'
+  docker_network:
+    name: 'awx_backend'
+    driver: 'overlay'
+
+- name: 'Create directory for container data'
+  file:
+    path: "{{ docker_data_dir }}/{{ dir.name }}"
+    owner: "{{ dir.owner | default('0') }}"
+    state: 'directory'
+  loop:
+    - { name: 'awx_db', owner: '999' }
+    - { name: 'awx_data/projects', owner: '1000' }
+  loop_control:
+    loop_var: 'dir'
+
+- name: 'Place SECRET_KEY (workaround for ansible/awx #4168)'
+  copy:
+    dest: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
+    owner: '1000'
+    mode: 0440
+    content: "{{ awx_secret_key }}"
+
+- name: 'Deploy Postgres for AWX'
+  docker_swarm_service:
+    name: 'awx_pgsql'
+    image: 'postgres:9.6'
+    env:
+      - "POSTGRES_PASSWORD={{ awx_db_password }}"
+      - 'POSTGRES_DB=awx'
+      - 'POSTGRES_USER=awx'
+    mounts:
+      - source: "{{ docker_data_dir }}/awx_db"
+        target: '/var/lib/postgresql/data'
+        type: 'bind'
+    networks:
+      - 'awx_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy RabbitMQ for AWX'
+  docker_swarm_service:
+    name: 'awx_rabbitmq'
+    image: 'rabbitmq:3'
+    env:
+      - 'RABBITMQ_DEFAULT_VHOST=awx'
+    networks:
+      - 'awx_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy Membached for AWX'
+  docker_swarm_service:
+    name: 'awx_memcached'
+    image: 'memcached:alpine'
+    networks:
+      - 'awx_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy AWX Web'
+  docker_swarm_service:
+    name: 'awx_web'
+    image: 'ansible/awx_web'
+    env:
+      - "SECRET_KEY={{ awx_secret_key }}"
+      - 'DATABASE_USER=awx'
+      - "DATABASE_PASSWORD={{ awx_db_password}}"
+      - 'DATABASE_NAME=awx'
+      - 'DATABASE_PORT=5432'
+      - 'DATABASE_HOST=tasks.awx_pgsql'
+      - 'RABBITMQ_USER=guest'
+      - 'RABBITMQ_PASSWORD=guest'
+      - 'RABBITMQ_HOST=tasks.awx_rabbitmq'
+      - 'RABBITMQ_PORT=5672'
+      - 'RABBITMQ_VHOST=awx'
+      - 'MEMCACHED_HOST=tasks.awx_memcached'
+      - 'MEMCACHED_PORT=11211'
+    mounts:
+      - source: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
+        target: '/etc/tower/SECRET_KEY'
+        type: 'bind'
+    networks:
+      - 'awx_backend'
+      - 'traefik_backend'
+    labels:
+      traefik.port: '8052'
+      traefik.docker.network: 'traefik_backend'
+      traefik.frontend.rule: "Host:{{ awx_app_name }}.{{ traefik_domain }}"
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy AWX Task'
+  docker_swarm_service:
+    name: 'awx_task'
+    hostname: 'awx'
+    image: 'ansible/awx_task'
+    env:
+      - "SECRET_KEY={{ awx_secret_key }}"
+      - 'DATABASE_USER=awx'
+      - "DATABASE_PASSWORD={{ awx_db_password}}"
+      - 'DATABASE_NAME=awx'
+      - 'DATABASE_PORT=5432'
+      - 'DATABASE_HOST=tasks.awx_pgsql'
+      - 'RABBITMQ_USER=guest'
+      - 'RABBITMQ_PASSWORD=guest'
+      - 'RABBITMQ_HOST=tasks.awx_rabbitmq'
+      - 'RABBITMQ_PORT=5672'
+      - 'RABBITMQ_VHOST=awx'
+      - 'MEMCACHED_HOST=tasks.awx_memcached'
+      - 'MEMCACHED_PORT=11211'
+    networks:
+      - 'awx_backend'
+    mounts:
+      - source: "{{ docker_data_dir }}/awx_data/projects"
+        target: '/var/lib/awx/projects/'
+        type: 'bind'
+      - source: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
+        target: '/etc/tower/SECRET_KEY'
+        type: 'bind'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: 'root'

@@ -1,0 +1,17 @@
+---
+- name: 'Deploy Docker Janitor'
+  docker_swarm_service:
+    name: 'janitor'
+    command: "sh -c 'while true; do docker system prune -af; sleep {{ docker_janitor_delay }}; done'"
+    image: 'docker'
+    mounts:
+      - source: '/var/run/docker.sock'
+        target: '/var/run/docker.sock'
+        type: 'bind'
+    mode: 'global'
+    restart_config:
+      condition: 'any'
+    placement:
+      constraints:
+        - 'node.platform.os == linux'
+    user: null
