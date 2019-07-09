@@ -16,7 +16,7 @@
   setup:
     gather_subset: 'network'
   delegate_to: "{{ worker }}"
-  delegate_facts: True
+  delegate_facts: true
   loop: "{{ query('inventory_hostnames', 'docker_workers') }}"
   loop_control:
     loop_var: 'worker'

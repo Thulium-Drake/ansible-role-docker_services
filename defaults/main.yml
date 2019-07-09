@@ -10,7 +10,7 @@ docker_edition: 'ce'
 docker_data_dir: '/data/docker/volumes'         # Where to store the volumes on the docker hosts
 
 traefik_domain: 'dckr.example.com'              # Subdomain to put all services under
-traefik_selfsign: True                          # Selfsign the used SSL certificate
+traefik_selfsign: true                          # Selfsign the used SSL certificate
 
 portainer_app_name: 'portainer'                 # Service name for Portainer (portainer.dckr.example.com)
 

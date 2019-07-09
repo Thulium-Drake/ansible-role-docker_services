@@ -10,8 +10,8 @@
     owner: "{{ dir.owner | default('0') }}"
     state: 'directory'
   loop:
-    - { name: 'awx_db', owner: '999' }
-    - { name: 'awx_data/projects', owner: '1000' }
+    - {name: 'awx_db', owner: '999'}
+    - {name: 'awx_data/projects', owner: '1000'}
   loop_control:
     loop_var: 'dir'
 
