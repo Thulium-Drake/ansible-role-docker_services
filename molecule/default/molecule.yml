@@ -1,0 +1,23 @@
+---
+dependency:
+  name: 'galaxy'
+driver:
+  name: 'docker'
+lint:
+  name: 'yamllint'
+platforms:
+  - name: "adjoin-docker"
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian9}-ansible:latest"
+    command: '/lib/systemd/systemd'
+    pre_build_image: true
+    volumes:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    privileged: true
+provisioner:
+  name: 'ansible'
+  lint:
+    name: 'ansible-lint'
+verifier:
+  name: 'testinfra'
+  lint:
+    name: 'flake8'
