@@ -59,4 +59,3 @@
       constraints:
         - 'node.role == manager'
     user: null
-

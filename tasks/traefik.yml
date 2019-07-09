@@ -14,22 +14,22 @@
     loop_var: 'dir'
 
 - block:
-  - name: 'Generate SSL key'
-    openssl_privatekey:
-      path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+    - name: 'Generate SSL key'
+      openssl_privatekey:
+        path: "{{ docker_data_dir }}/traefik_data/traefik.key"
 
-  - name: 'Generate SSL certificate request'
-    openssl_csr:
-      path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
-      privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
-      common_name: "*.{{ traefik_domain }}"
+    - name: 'Generate SSL certificate request'
+      openssl_csr:
+        path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
+        privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+        common_name: "*.{{ traefik_domain }}"
 
-  - name: 'Self-sign SSL certificate'
-    openssl_certificate:
-      path: "{{ docker_data_dir }}/traefik_data/traefik.crt"
-      privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
-      csr_path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
-      provider: selfsigned
+    - name: 'Self-sign SSL certificate'
+      openssl_certificate:
+        path: "{{ docker_data_dir }}/traefik_data/traefik.crt"
+        privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
+        csr_path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
+        provider: selfsigned
   when: traefik_selfsign
 
 - name: 'Deploy Traefik'
@@ -40,7 +40,7 @@
       - '/traefik'
       - '--docker'
       - '--docker.swarmMode'
-      - "--docker.domain={{ traefik_domain}}"
+      - "--docker.domain={{ traefik_domain }}"
       - '--docker.watch'
       - '--defaultentrypoints=http,https'
       - '--entryPoints=Name:https Address::443 TLS:/certs/traefik.crt,/certs/traefik.key'

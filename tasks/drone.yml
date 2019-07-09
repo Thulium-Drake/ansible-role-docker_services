@@ -42,7 +42,7 @@
     env:
       - 'DRONE_USER_CREATE=username:root,admin:true'
       - 'DRONE_DATABASE_DRIVER=mysql'
-      - "DRONE_DATABASE_DATASOURCE=drone:{{ drone_db_password}}@tcp(tasks.drone_mariadb:3306)/drone?parseTime=true"
+      - "DRONE_DATABASE_DATASOURCE=drone:{{ drone_db_password }}@tcp(tasks.drone_mariadb:3306)/drone?parseTime=true"
       - "DRONE_GITEA_SERVER={{ drone_gitea_server }}"
       - "DRONE_GITEA_CLIENT_ID={{ drone_gitea_client_id }}"
       - "DRONE_GITEA_CLIENT_SECRET={{ drone_gitea_client_secret }}"
@@ -62,7 +62,7 @@
       - source: '/var/run/docker.sock'
         target: '/var/run/docker.sock'
         type: 'bind'
-      - source: "{{ docker_data_dir}}/drone_data"
+      - source: "{{ docker_data_dir }}/drone_data"
         target: '/data'
         type: 'bind'
     networks:

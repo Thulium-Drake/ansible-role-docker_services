@@ -75,7 +75,7 @@
     env:
       - "SECRET_KEY={{ awx_secret_key }}"
       - 'DATABASE_USER=awx'
-      - "DATABASE_PASSWORD={{ awx_db_password}}"
+      - "DATABASE_PASSWORD={{ awx_db_password }}"
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
       - 'DATABASE_HOST=tasks.awx_pgsql'
@@ -111,7 +111,7 @@
     env:
       - "SECRET_KEY={{ awx_secret_key }}"
       - 'DATABASE_USER=awx'
-      - "DATABASE_PASSWORD={{ awx_db_password}}"
+      - "DATABASE_PASSWORD={{ awx_db_password }}"
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
       - 'DATABASE_HOST=tasks.awx_pgsql'

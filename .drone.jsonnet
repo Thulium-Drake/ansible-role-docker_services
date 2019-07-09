@@ -30,5 +30,8 @@
           { GITHUB_TOKEN: { from_secret: "github_token" } },
       },
     ],
+    depends_on: [
+      "Lint",
+    ],
   },
 ]
