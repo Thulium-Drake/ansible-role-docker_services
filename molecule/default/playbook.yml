@@ -2,4 +2,4 @@
 - name: Converge
   hosts: all
   roles:
-    - role: docker_services
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | basename }}"
