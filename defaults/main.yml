@@ -32,3 +32,4 @@ docker_janitor_delay: 3600                                # Interval for Janitor
 
 wikijs_db_password: 'KnowledgeIsPower'
 wikijs_app_name: 'wiki'
+wikijs_init_admin_email: 'root@localhost'                 # Initial administrator username after installation

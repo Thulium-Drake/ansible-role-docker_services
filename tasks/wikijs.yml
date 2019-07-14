@@ -41,6 +41,8 @@
     networks:
       - 'wikijs_backend'
       - 'traefik_backend'
+    env:
+      - "WIKI_ADMIN_EMAIL={{ wikijs_init_admin_email }}"
     mounts:
       - source: "{{ docker_data_dir }}/wikijs_data/data"
         target: '/var/wiki/data'
