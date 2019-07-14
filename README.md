@@ -40,3 +40,12 @@ https://{{ service_app_name }}.{{ traefik_domain }}
 ```
 
 Which translates to something like https://portainer.dckr.example.com
+
+# Extra actions
+Some services require some more actions before they work, below is are the instructions per service if they require additional setup.
+
+## Wiki.js
+Do this before running the playbook (or you will get some errors)
+* Download https://github.com/Requarks/wiki-v1/blob/master/config.sample.yml and fill it in. Save it as {{ docker_data_dir }}/config.yml
+* Generate a SSH key and place that in {{ docker_data_dir }}/wikijs_data/ssh
+* Run the playbook

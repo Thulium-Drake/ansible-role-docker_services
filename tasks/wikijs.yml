@@ -10,21 +10,21 @@
     state: 'directory'
   loop:
     - 'wikijs_db'
+    - 'wikijs_data/data'
+    - 'wikijs_data/repo'
+    - 'wikijs_data/ssh'
   loop_control:
     loop_var: 'dir'
 
 - name: 'Deploy MariaDB for Wiki.js'
   docker_swarm_service:
-    name: 'wikijs_mariadb'
-    image: 'mariadb'
+    name: 'wikijs_mongodb'
+    image: 'mongo:3'
     env:
-      - "MYSQL_ROOT_PASSWORD={{ db_root_password }}"
-      - 'MYSQL_DATABASE=wikijs'
-      - 'MYSQL_USER=wikijs'
-      - "MYSQL_PASSWORD={{ wikijs_db_password }}"
+      - 'MONGO_LOG_DIR=/dev/null'
     mounts:
       - source: "{{ docker_data_dir }}/wikijs_db"
-        target: '/var/lib/mysql'
+        target: '/data/db'
         type: 'bind'
     networks:
       - 'wikijs_backend'
@@ -38,15 +38,22 @@
   docker_swarm_service:
     name: 'wikijs'
     image: 'requarks/wiki'
-    env:
-      - 'DB_TYPE=mysql'
-      - 'DB_HOST=tasks.wikijs_mariadb'
-      - 'DB_NAME=wikijs'
-      - 'DB_USER=wikijs'
-      - "DB_PASSWD={{ wikijs_db_password }}"
     networks:
       - 'wikijs_backend'
       - 'traefik_backend'
+    mounts:
+      - source: "{{ docker_data_dir }}/wikijs_data/data"
+        target: '/var/wiki/data'
+        type: 'bind'
+      - source: "{{ docker_data_dir }}/wikijs_data/repo"
+        target: '/var/wiki/repo'
+        type: 'bind'
+      - source: "{{ docker_data_dir }}/wikijs_data/ssh"
+        target: '/var/wiki/ssh'
+        type: 'bind'
+      - source: "{{ docker_data_dir }}/wikijs_data/config.yml"
+        target: '/var/wiki/config.yml'
+        type: 'bind'
     labels:
       traefik.port: '3000'
       traefik.docker.network: 'traefik_backend'
