@@ -29,3 +29,6 @@ awx_db_password: 'AutomateAllTheThings!'
 awx_secret_key: 'FasterThenLight'
 
 docker_janitor_delay: 3600                                # Interval for Janitor to run 'docker prune system -f'
+
+wikijs_db_password: 'KnowledgeIsPower'
+wikijs_app_name: 'wiki'
