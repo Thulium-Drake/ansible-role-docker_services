@@ -37,7 +37,7 @@
 - name: 'Deploy Wiki.js'
   docker_swarm_service:
     name: 'wikijs'
-    image: 'requarks/wikijs'
+    image: 'requarks/wiki'
     env:
       - 'DB_TYPE=mysql'
       - 'DB_HOST=tasks.wikijs_mariadb'
