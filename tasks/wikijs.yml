@@ -1,0 +1,58 @@
+---
+- name: 'Create network'
+  docker_network:
+    name: 'wikijs_backend'
+    driver: 'overlay'
+
+- name: 'Create directory for container data'
+  file:
+    path: "{{ docker_data_dir }}/{{ dir }}"
+    state: 'directory'
+  loop:
+    - 'wikijs_db'
+  loop_control:
+    loop_var: 'dir'
+
+- name: 'Deploy MariaDB for Wiki.js'
+  docker_swarm_service:
+    name: 'wikijs_mariadb'
+    image: 'mariadb'
+    env:
+      - "MYSQL_ROOT_PASSWORD={{ db_root_password }}"
+      - 'MYSQL_DATABASE=wikijs'
+      - 'MYSQL_USER=wikijs'
+      - "MYSQL_PASSWORD={{ wikijs_db_password }}"
+    mounts:
+      - source: "{{ docker_data_dir }}/wikijs_db"
+        target: '/var/lib/mysql'
+        type: 'bind'
+    networks:
+      - 'wikijs_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy Wiki.js'
+  docker_swarm_service:
+    name: 'wikijs'
+    image: 'requarks/wikijs'
+    env:
+      - 'DB_TYPE=mysql'
+      - 'DB_HOST=tasks.wikijs_mariadb'
+      - 'DB_NAME=wikijs'
+      - 'DB_USER=wikijs'
+      - "DB_PASSWD={{ wikijs_db_password }}"
+    networks:
+      - 'wikijs_backend'
+      - 'traefik_backend'
+    labels:
+      traefik.port: '3000'
+      traefik.docker.network: 'traefik_backend'
+      traefik.frontend.rule: "Host:{{ wikijs_app_name }}.{{ traefik_domain }}"
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
