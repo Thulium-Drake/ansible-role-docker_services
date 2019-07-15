@@ -48,4 +48,7 @@ Some services require some more actions before they work, below is are the instr
 Do this before running the playbook (or you will get some errors)
 * Download https://github.com/Requarks/wiki-v1/blob/master/config.sample.yml and fill it in. Save it as {{ docker_data_dir }}/config.yml
 * Generate a SSH key and place that in {{ docker_data_dir }}/wikijs_data/ssh
+* Create a new Git repo in your Git server and make sure it has some contents
 * Run the playbook
+
+After running the playbook, you should be able to login using {{ wikijs_init_admin_email }} / admin123

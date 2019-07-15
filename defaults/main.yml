@@ -14,6 +14,11 @@ traefik_selfsign: true                          # Selfsign the used SSL certific
 
 portainer_app_name: 'portainer'                 # Service name for Portainer (portainer.dckr.example.com)
 
+registry_app_name: 'registry'
+
+# Traefik basic auth string, in this case docker / ImagesForTheMasses
+registry_basic_auth_string: 'docker:$2y$05$dsUtquzFQuw.opFhnRYfyevSM.rbY0Ug95d98bOcdOxP9TfPyAsVa'
+
 db_root_password: 'StoreAllTheData!'            # Databasae root password for all services
 
 gitea_app_name: 'gitea'

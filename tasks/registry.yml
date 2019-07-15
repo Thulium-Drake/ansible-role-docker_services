@@ -25,5 +25,6 @@
     labels:
       traefik.port: '5000'
       traefik.docker.network: 'traefik_backend'
-      traefik.frontend.rule: "Host: registry.{{ traefik_domain }}"
+      traefik.frontend.rule: "Host: {{ registry_app_name }}.{{ traefik_domain }}"
+      traefik.frontend.auth.basic: "{{ registry_basic_auth_string }}"
     user: null
