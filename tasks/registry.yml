@@ -33,6 +33,7 @@
     path: "{{ docker_data_dir }}/registry_data/ssl/htpasswd"
     name: "{{ registry_username }}"
     password: "{{ registry_password }}"
+    crypt_scheme: 'bcrypt'
     owner: 'root'
     group: 'root'
     mode: 0640
@@ -44,7 +45,9 @@
     env:
       - "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt"
       - "REGISTRY_HTTP_TLS_KEY=/certs/registry.key"
+      - "REGISTRY_HTTP_HOST=https://{{ registry_app_name }}"
       - "REGISTRY_AUTH_HTPASSWD_PATH=/certs/htpasswd"
+      - "REGISTRY_AUTH_HTPASSWD_REALM=Docker registry"
       - "REGISTRY_AUTH=htpasswd"
     mounts:
       - source: '{{ docker_data_dir }}/registry_data/data'
