@@ -6,22 +6,22 @@
 
 - name: 'Create directory for container data'
   file:
-    path: "{{ docker_data_dir }}/{{ dir }}"
+    path: "{{ docker_data_dir }}/{{ dir.name }}"
+    owner: "{{ dir.owner | default('0') }}"
     state: 'directory'
   loop:
-    - 'wikijs_db'
-    - 'wikijs_data/data'
-    - 'wikijs_data/repo'
-    - 'wikijs_data/ssh'
+    - {name: 'wikijs_db'}
+    - {name: 'wikijs_data/data', owner: '1000'}
+    - {name: 'wikijs_data/ssh', owner: '1000'}
   loop_control:
     loop_var: 'dir'
 
 - name: 'Place Wiki.js config'
   template:
-    dest: "{{ docker_data_dir }}/config.yml"
+    dest: "{{ docker_data_dir }}/wikijs_data/config.yml"
     src: 'wikijs_config.yml.j2'
-    owner: 'root'
-    group: 'root'
+    owner: '1000'
+    group: '1000'
     mode: 0440
 
 - name: 'Deploy MariaDB for Wiki.js'
