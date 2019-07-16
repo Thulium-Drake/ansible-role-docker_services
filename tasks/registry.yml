@@ -47,7 +47,7 @@
     restart_config:
       condition: 'any'
     labels:
-      traefik.insecureSkipVerify: true
+      traefik.insecureSkipVerify: 'true'
       traefik.protocol: 'https'
       traefik.port: '5000'
       traefik.docker.network: 'traefik_backend'
