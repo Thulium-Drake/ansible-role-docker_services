@@ -26,7 +26,7 @@
         privatekey_path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
         csr_path: "{{ docker_data_dir }}/registry_data/ssl/registry.csr"
         provider: selfsigned
-    when: registry_selfsign
+  when: registry_selfsign
 
 - name: 'Create HTTP Basic auth file'
   htpasswd:
