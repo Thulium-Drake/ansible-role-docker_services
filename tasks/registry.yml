@@ -4,17 +4,41 @@
     path: "{{ docker_data_dir }}/{{ dir }}"
     state: 'directory'
   loop:
-    - 'registry_data'
+    - 'registry_data/data'
+    - 'registry_data/ssl'
   loop_control:
     loop_var: 'dir'
+
+- name: 'Generate SSL key'
+  openssl_privatekey:
+    path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
+
+- name: 'Generate SSL certificate request'
+  openssl_csr:
+    path: "{{ docker_data_dir }}/registry_data/ssl/registry.csr"
+    privatekey_path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
+    common_name: "{{ registry_app_name }}.{{ traefik_domain }}"
+
+- name: 'Self-sign SSL certificate'
+  openssl_certificate:
+    path: "{{ docker_data_dir }}/registry_data/ssl/registry.crt"
+    privatekey_path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
+    csr_path: "{{ docker_data_dir }}/registry_data/ssl/registry.csr"
+    provider: selfsigned
 
 - name: 'Deploy Docker Registry'
   docker_swarm_service:
     name: 'registry'
     image: 'registry'
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/registry.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/registry.key
     mounts:
-      - source: '{{ docker_data_dir }}/registry_data'
+      - source: '{{ docker_data_dir }}/registry_data/data'
         target: '/var/lib/registry'
+        type: 'bind'
+      - source: '{{ docker_data_dir }}/registry_data/ssl'
+        target: '/certs'
         type: 'bind'
     networks:
       - 'traefik_backend'
