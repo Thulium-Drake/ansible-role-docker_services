@@ -30,7 +30,7 @@
   docker_swarm_service:
     name: 'registry'
     image: 'registry'
-    environment:
+    env:
       - "REGISTRY_HTTP_TLS_CERTIFICATE=/certs/registry.crt"
       - "REGISTRY_HTTP_TLS_KEY=/certs/registry.key"
     mounts:
