@@ -16,15 +16,18 @@
   loop_control:
     loop_var: 'dir'
 
+- name: 'Place Wiki.js config'
+  template:
+    dest: "{{ docker_data_dir }}/config.yml"
+    src: 'wikijs_config.yml.j2'
+    owner: 'root'
+    group: 'root'
+    mode: 0440
+
 - name: 'Deploy MariaDB for Wiki.js'
   docker_swarm_service:
     name: 'wikijs_mariadb'
     image: 'mariadb'
-    env:
-      - "MYSQL_ROOT_PASSWORD={{ db_root_password }}"
-      - 'MYSQL_DATABASE=wikijs'
-      - 'MYSQL_USER=wikijs'
-      - "MYSQL_PASSWORD={{ wikijs_db_password }}"
     mounts:
       - source: "{{ docker_data_dir }}/wikijs_db"
         target: '/data/db'
@@ -54,13 +57,13 @@
       - "DB_PASSWORD={{ wikijs_db_password }}"
     mounts:
       - source: "{{ docker_data_dir }}/wikijs_data/data"
-        target: '/var/wiki/data'
+        target: '/wiki/data'
         type: 'bind'
       - source: "{{ docker_data_dir }}/wikijs_data/repo"
-        target: '/var/wiki/repo'
+        target: '/wiki/repo'
         type: 'bind'
       - source: "{{ docker_data_dir }}/wikijs_data/ssh"
-        target: '/var/wiki/ssh'
+        target: '/wiki/ssh'
         type: 'bind'
       - source: "{{ docker_data_dir }}/wikijs_data/config.yml"
         target: '/wiki/config.yml'
