@@ -14,12 +14,12 @@ traefik_selfsign: true                          # Selfsign the used SSL certific
 
 portainer_app_name: 'portainer'                 # Service name for Portainer (portainer.dckr.example.com)
 
-registry_app_name: 'registry'
+registry_app_name: 'registry.example.com'
+registry_selfsign: true                          # Selfsign the used SSL certificate
+registry_username: 'docker'
+registry_password: 'ImagesForTheMasses'
 
-# Traefik basic auth string, in this case docker / ImagesForTheMasses
-registry_basic_auth_string: 'docker:$2y$05$dsUtquzFQuw.opFhnRYfyevSM.rbY0Ug95d98bOcdOxP9TfPyAsVa'
-
-db_root_password: 'StoreAllTheData!'            # Databasae root password for all services
+db_root_password: 'StoreAllTheData!'            # Database root password for all services
 
 gitea_app_name: 'gitea'
 gitea_db_password: 'GitRocksYourSocksOff'
