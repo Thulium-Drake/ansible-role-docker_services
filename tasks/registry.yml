@@ -47,8 +47,11 @@
     restart_config:
       condition: 'any'
     labels:
+      traefik.insecureSkipVerify: true
+      traefik.protocol: 'https'
       traefik.port: '5000'
       traefik.docker.network: 'traefik_backend'
       traefik.frontend.rule: "Host: {{ registry_app_name }}.{{ traefik_domain }}"
       traefik.frontend.auth.basic: "{{ registry_basic_auth_string }}"
+
     user: null
