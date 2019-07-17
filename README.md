@@ -48,3 +48,8 @@ Some services require some more actions before they work, below is are the instr
 Please make sure you create a local copy of LocalSettings.php in {{ docker_data_dir }}/mediawiki_data, this copy will be mounted inside the contianer.
 
 This playbook will check if the file is present, but will not change the content.
+
+## DB Backup
+The DB backup service is rather simple, it will only backup all containers that match the filters.
+
+It will NOT manage your backups, it will create a backup.sql in {{ docker_data_dir }}/{{ app_name }}_db.

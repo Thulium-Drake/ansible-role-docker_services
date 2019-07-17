@@ -20,6 +20,7 @@ registry_username: 'docker'
 registry_password: 'ImagesForTheMasses'
 
 db_root_password: 'StoreAllTheData!'            # Database root password for all services
+db_backup_interval: '86400'                     # Interval in seconds when to run DB backups
 
 gitea_app_name: 'gitea'
 gitea_db_password: 'GitRocksYourSocksOff'
