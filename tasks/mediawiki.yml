@@ -18,7 +18,7 @@
 - name: 'Check if LocalSettings.php is present'
   file:
     path: "{{ docker_data_dir }}/mediawiki_data/LocalSettings.php"
-    state: 'file'
+    state: 'touch'
     owner: 1000
     group: 1000
     mode: 0644
