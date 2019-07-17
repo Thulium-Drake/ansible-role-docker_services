@@ -37,3 +37,4 @@ docker_janitor_delay: 3600                                # Interval for Janitor
 
 mediawiki_db_password: 'KnowledgeIsPower'
 mediawiki_app_name: 'wiki'
+mediawiki_image: 'mediawiki'

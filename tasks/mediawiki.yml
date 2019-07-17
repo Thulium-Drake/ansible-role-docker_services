@@ -10,8 +10,8 @@
     owner: "{{ dir.owner | default('0') }}"
     state: 'directory'
   loop:
-    - {name: 'mediawiki_db'}
-    - {name: 'mediawiki_data', owner: '1000'}
+    - {name: 'mediawiki_db', owner: '999'}
+    - {name: 'mediawiki_data/images', owner: '1000'}
   loop_control:
     loop_var: 'dir'
 
@@ -19,8 +19,8 @@
   file:
     path: "{{ docker_data_dir }}/mediawiki_data/LocalSettings.php"
     state: 'touch'
-    owner: 1000
-    group: 1000
+    owner: '1000'
+    group: '1000'
     mode: 0644
 
 - name: 'Deploy MariaDB for Mediawiki'
