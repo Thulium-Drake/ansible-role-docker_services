@@ -1,0 +1,69 @@
+---
+- name: 'Create network'
+  docker_network:
+    name: 'mediawiki_backend'
+    driver: 'overlay'
+
+- name: 'Create directory for container data'
+  file:
+    path: "{{ docker_data_dir }}/{{ dir.name }}"
+    owner: "{{ dir.owner | default('0') }}"
+    state: 'directory'
+  loop:
+    - {name: 'mediawiki_db'}
+    - {name: 'wikijs_data', owner: '1000'}
+  loop_control:
+    loop_var: 'dir'
+
+- name: 'Check if LocalSettings.php is present'
+  file:
+    path: "{{ docker_data_dir }}/mediawiki_data/LocalSettings.php"
+    state: 'present'
+    owner: 1000
+    group: 1000
+    mode: 0644
+
+- name: 'Deploy MariaDB for Mediawiki'
+  docker_swarm_service:
+    name: 'mediawiki_mariadb'
+    image: 'mariadb'
+    env:
+      - "MYSQL_ROOT_PASSWORD={{ db_root_password }}"
+      - 'MYSQL_DATABASE=mediawiki'
+      - 'MYSQL_USER=mediawiki'
+      - "MYSQL_PASSWORD={{ mediawiki_db_password }}"
+    mounts:
+      - source: "{{ docker_data_dir }}/mediawiki_db"
+        target: '/var/lib/mysql'
+        type: 'bind'
+    networks:
+      - 'mediawiki_backend'
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null
+
+- name: 'Deploy Mediawiki'
+  docker_swarm_service:
+    name: 'mediawiki'
+    image: "{{ mediawiki_image }}"
+    networks:
+      - 'mediawiki_backend'
+      - 'traefik_backend'
+    mounts:
+      - source: "{{ docker_data_dir }}/mediawiki_data/LocalSettings.php"
+        target: '/var/www/html/LocalSettings.php'
+        type: 'bind'
+      - source: "{{ docker_data_dir }}/mediawiki_data/images"
+        target: '/var/www/html/images'
+        type: 'bind'
+    labels:
+      traefik.port: '80'
+      traefik.docker.network: 'traefik_backend'
+      traefik.frontend.rule: "Host:{{ mediawiki_app_name }}.{{ traefik_domain }}"
+    mode: 'replicated'
+    replicas: 1
+    restart_config:
+      condition: 'any'
+    user: null

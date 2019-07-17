@@ -44,11 +44,7 @@ Which translates to something like https://portainer.dckr.example.com
 # Extra actions
 Some services require some more actions before they work, below is are the instructions per service if they require additional setup.
 
-## Wiki.js
-Do this before running the playbook (or you will get some errors)
-* Download https://github.com/Requarks/wiki-v1/blob/master/config.sample.yml and fill it in. Save it as {{ docker_data_dir }}/config.yml
-* Generate a SSH key and place that in {{ docker_data_dir }}/wikijs_data/ssh
-* Create a new Git repo in your Git server and make sure it has some contents
-* Run the playbook
+## Mediawiki
+Please make sure you create a local copy of LocalSettings.php in {{ docker_data_dir }}/mediawiki_data, this copy will be mounted inside the contianer.
 
-After running the playbook, you should be able to login using {{ wikijs_init_admin_email }} / admin123
+This playbook will check if the file is present, but will not change the content.
