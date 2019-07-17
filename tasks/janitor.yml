@@ -2,7 +2,7 @@
 - name: 'Deploy Docker Janitor'
   docker_swarm_service:
     name: 'janitor'
-    command: "sh -c 'while true; do docker system prune -af; sleep {{ docker_janitor_delay }}; done'"
+    command: "sh -c 'while true; do for i in $(docker ps | awk '{print $2}' | grep -v :); do for j in $(docker ps | grep $i | awk '{print $1}'); do docker stop $j done; done; docker system prune -af; sleep {{ docker_janitor_delay }}; done'"
     image: 'docker'
     mounts:
       - source: '/var/run/docker.sock'

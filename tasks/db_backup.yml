@@ -2,15 +2,7 @@
 - name: 'Deploy Docker DB Backupper'
   docker_swarm_service:
     name: 'db_backup'
-    command: >
-    "sh -c 'while true;
-      do
-        for container in $(docker ps -qf name=mariadb);
-        do
-          docker exec $container /usr/bin/mysqldump -A -u root --password={{ db_root_password }} > /var/lib/mysql/backup.sql;
-        done;
-        sleep {{ docker_db_backup_delay }};
-      done'"
+    command: "sh -c 'while true; do for container in $(docker ps -qf name=mariadb); do echo \"starting backup $container\"; docker exec $container /usr/bin/mysqldump -A -uroot -p{{ db_root_password }} -r /var/lib/mysql/backup.sql; done; sleep {{ db_backup_interval }}; done'"
     image: 'docker'
     mounts:
       - source: '/var/run/docker.sock'
