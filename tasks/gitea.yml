@@ -58,7 +58,7 @@
       - 'traefik_backend'
     publish:
       - published_port: 2222
-        target_port: 22
+        target_port: 2222
     labels:
       traefik.port: '3000'
       traefik.docker.network: 'traefik_backend'
