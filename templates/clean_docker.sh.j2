@@ -1,0 +1,16 @@
+#!/bin/sh
+# Stop outdated containers and prune old networks/images/containers
+
+while true
+do
+  for i in $(docker ps | awk '{print $2}' | grep -v : )
+  do
+    for j in $(docker ps | grep $i | awk '{print $1}' | grep -v CONTAINER )
+    do
+      docker stop $j
+    done
+  done
+
+  docker system prune -af
+  sleep {{ docker_janitor_delay }}
+done
