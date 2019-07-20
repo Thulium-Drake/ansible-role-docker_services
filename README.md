@@ -9,7 +9,9 @@ The catalogus currently contains:
 * AWX: Ansible Tower's upstream (https://github.com/ansible/awx)
 * Traefik: Docker integrated reverse proxy (https://github.com/containous/traefik)
 * Docker registry: local docker image storage
-* Janitor: a docker that will periodically run 'docker system prune -f' to clean up all unused stuff
+* Janitor: a docker that will periodically run a script to clean up all unused and outdated stuff
+* Mediawiki: Wikipedia's wiki engine, check the instructions below.
+* DB_backup: a docker that will periodically run a script to tell all mariadb containers found to dump their databases on the shared storage
 
 This role has a few mandatory parts that will be provisioned which (most, if not all) other services depend upon:
 
@@ -50,6 +52,8 @@ Please make sure you create a local copy of LocalSettings.php in {{ docker_data_
 This playbook will check if the file is present, but will not change the content.
 
 ## DB Backup
-The DB backup service is rather simple, it will only backup all containers that match the filters.
+The DB backup service is rather simple, it will only backup all containers that match the filters:
 
-It will NOT manage your backups, it will create a backup.sql in {{ docker_data_dir }}/{{ app_name }}_db.
+* container name ends with mariadb
+
+It will NOT manage your backups, it will create a backup.sql in {{ docker_data_dir }}/{{ app_name }}_db and overwrite it every time.
