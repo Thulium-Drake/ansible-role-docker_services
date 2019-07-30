@@ -11,6 +11,6 @@ do
     done
   done
 
-  docker system prune -af
+  docker system prune -af --volumes
   sleep {{ docker_janitor_delay }}
 done
