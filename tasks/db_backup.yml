@@ -11,7 +11,7 @@
 - name: 'Place files for DB Backup'
   template:
     src: 'db_backup.sh.j2'
-    dest: "{{ docker_data_dir }}/janitor_data/db_backup.sh"
+    dest: "{{ docker_data_dir }}/db_backup_data/db_backup.sh"
     mode: 0750
     owner: 'root'
     group: 'root'
