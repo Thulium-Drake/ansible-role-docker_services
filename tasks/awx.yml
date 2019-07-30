@@ -29,7 +29,6 @@
     env:
       - "POSTGRES_PASSWORD={{ awx_db_password }}"
       - 'POSTGRES_DB=awx'
-      - 'POSTGRES_USER=awx'
     mounts:
       - source: "{{ docker_data_dir }}/awx_db"
         target: '/var/lib/postgresql/data'
@@ -74,7 +73,7 @@
     image: 'ansible/awx_web'
     env:
       - "SECRET_KEY={{ awx_secret_key }}"
-      - 'DATABASE_USER=awx'
+      - 'DATABASE_USER=postgres'
       - "DATABASE_PASSWORD={{ awx_db_password }}"
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
@@ -110,7 +109,7 @@
     image: 'ansible/awx_task'
     env:
       - "SECRET_KEY={{ awx_secret_key }}"
-      - 'DATABASE_USER=awx'
+      - 'DATABASE_USER=postgres'
       - "DATABASE_PASSWORD={{ awx_db_password }}"
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
