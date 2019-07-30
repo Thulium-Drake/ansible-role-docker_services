@@ -5,7 +5,7 @@ do
   for container in $(docker ps -qf name=mariadb)
   do
     echo "starting backup $container"
-    docker exec -i $container /bin/sh -c "/usr/bin/mysqldump -A -uroot -p{{ db_root_password }} > /var/lib/mysql/backup.sql.gz"
+    docker exec -i $container /bin/sh -c "/usr/bin/mysqldump -A -uroot -p{{ db_root_password }} | gzip > /var/lib/mysql/backup.sql.gz"
   done;
 
   for container in $(docker ps -qf name=pgsql)
