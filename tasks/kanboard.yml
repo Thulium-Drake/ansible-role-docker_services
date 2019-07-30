@@ -54,7 +54,7 @@
       - 'kanboard_backend'
       - 'traefik_backend'
     labels:
-      traefik.port: '3000'
+      traefik.port: '80'
       traefik.docker.network: 'traefik_backend'
       traefik.frontend.rule: "Host:{{ kanboard_app_name }}.{{ traefik_domain }}"
     mode: 'replicated'
