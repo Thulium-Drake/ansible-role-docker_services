@@ -26,4 +26,5 @@
         target_port: 27015
       - published_port: 34197
         target_port: 34197
+        protocol: 'udp'
     user: null
