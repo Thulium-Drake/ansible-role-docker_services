@@ -12,7 +12,7 @@
 - name: 'Deploy Factorio Server'
   docker_swarm_service:
     name: 'factorio_server'
-    image: 'factoriotools/factorio'
+    image: 'factoriotools/factorio:stable'
     mounts:
       - source: '{{ docker_data_dir }}/factorio_server_data'
         target: '/factorio'
