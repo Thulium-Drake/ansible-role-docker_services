@@ -14,7 +14,8 @@
     name: 'minecraft_server'
     image: 'itzg/minecraft-server'
     env:
-      - "EULA=true"
+      - 'EULA=true'
+      - "TYPE={{ minecraft_server_type }}"
     mounts:
       - source: '{{ docker_data_dir }}/minecraft_server_data'
         target: '/data'

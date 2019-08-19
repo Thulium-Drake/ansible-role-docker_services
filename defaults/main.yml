@@ -45,3 +45,5 @@ mediawiki_image: 'mediawiki'
 
 kanboard_db_password: 'DoAllTheThings'
 kanboard_app_name: 'kanboard'
+
+minecraft_server_type: 'VANILLA'
