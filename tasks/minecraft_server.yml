@@ -5,7 +5,7 @@
     owner: "{{ dir.owner | default('0') }}"
     state: 'directory'
   loop:
-    - {name: 'minecraft_server_data', owner: '845'}
+    - {name: 'minecraft_server_data'}
   loop_control:
     loop_var: 'dir'
 
