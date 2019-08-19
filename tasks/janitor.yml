@@ -30,7 +30,7 @@
         type: 'bind'
     mode: 'global'
     restart_config:
-      condition: 'any'
+      condition: "{{ restart_condition }}"
     placement:
       constraints:
         - 'node.platform.os == linux'

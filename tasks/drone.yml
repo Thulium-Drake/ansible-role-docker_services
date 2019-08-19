@@ -32,7 +32,7 @@
     mode: 'replicated'
     replicas: 1
     restart_config:
-      condition: 'any'
+      condition: "{{ restart_condition }}"
     user: null
 
 - name: 'Deploy Drone'
@@ -71,7 +71,7 @@
       - 'gitea_backend'
     mode: 'replicated'
     restart_config:
-      condition: 'any'
+      condition: '{{ restart_condition }}'
     user: null
 
 - name: 'Deploy Drone agents'
@@ -90,5 +90,5 @@
         target: '/var/run/docker.sock'
         type: 'bind'
     restart_config:
-      condition: 'any'
+      condition: '{{ restart_condition }}'
     user: null

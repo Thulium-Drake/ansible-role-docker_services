@@ -2,4 +2,3 @@
 mandatory_services:
   - 'traefik'
   - 'portainer'
-  - 'janitor'

@@ -56,7 +56,7 @@
       - 'traefik_backend'
     mode: 'global'
     restart_config:
-      condition: 'any'
+      condition: "{{ restart_condition }}"
     publish:
       - published_port: 80
         target_port: 80
