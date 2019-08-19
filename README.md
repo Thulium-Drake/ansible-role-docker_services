@@ -12,6 +12,10 @@ The catalogus currently contains:
 * Janitor: a docker that will periodically run a script to clean up all unused and outdated stuff
 * Mediawiki: Wikipedia's wiki engine, check the instructions below.
 * DB_backup: a docker that will periodically run a script to tell all mariadb containers found to dump their databases on the shared storage
+* Kanboard: A Kanban board with a webinterface
+* Factorio server: A game where you manage a automated factory and defend it against the neighbors
+* Teamspeak server: VOIP server
+
 
 This role has a few mandatory parts that will be provisioned which (most, if not all) other services depend upon:
 
