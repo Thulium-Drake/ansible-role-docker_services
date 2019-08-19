@@ -20,6 +20,7 @@
   docker_swarm_service:
     name: 'rocketchat_mongo'
     image: 'mongo:3.0'
+    command: 'mongod --oplogSize 128 --replSet rs0'
     mounts:
       - source: "{{ docker_data_dir }}/rocketchat_db/db"
         target: '/data/db'
@@ -44,6 +45,7 @@
       - 'PORT=3000'
       - "ROOT_URL=https://{{ rocketchat_app_name }}.{{ traefik_domain }}"
       - 'MONGO_URL=mongodb://tasks.rocketchat_mongo:27017/rocketchat'
+      - 'MONGO_OPLOG_URL=mongodb://tasks.rocketchat_mongo:27017/local'
       - 'Accounts_UseDNSDomainCheck=True'
     networks:
       - 'rocketchat_backend'
