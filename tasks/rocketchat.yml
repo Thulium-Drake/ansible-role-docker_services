@@ -10,8 +10,8 @@
     owner: "{{ dir.owner | default('0') }}"
     state: 'directory'
   loop:
-    - {name: 'rocketchat_db/db'}
-    - {name: 'rocketchat_db/dump'}
+    - {name: 'rocketchat_db/db', owner: '999'}
+    - {name: 'rocketchat_db/dump', owner: '999'}
     - {name: 'rocketchat_data'}
   loop_control:
     loop_var: 'dir'
