@@ -20,7 +20,7 @@
   docker_swarm_service:
     name: 'rocketchat_mongo'
     image: 'mongo:4'
-    command: 'mongod --oplogSize 128 --replSet rs0'
+    command: 'mongod --oplogSize 128 --replSet rs0 --bind_ip_all'
     mounts:
       - source: "{{ docker_data_dir }}/rocketchat_db/db"
         target: '/data/db'
