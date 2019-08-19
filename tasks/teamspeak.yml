@@ -39,7 +39,7 @@
 - name: 'Deploy TeamSpeak'
   docker_swarm_service:
     name: 'teamspeak'
-    image: "{{ teamspeak_image }}"
+    image: 'teamspeak'
     env:
       - 'TS3SERVER_DB_PLUGIN=ts3db_mariadb'
       - 'TS3SERVER_DB_SQLCREATEPATH=create_mariadb'
