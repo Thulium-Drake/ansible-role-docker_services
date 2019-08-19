@@ -44,7 +44,7 @@
       - 'TS3SERVER_DB_PLUGIN=ts3db_mariadb'
       - 'TS3SERVER_DB_SQLCREATEPATH=create_mariadb'
       - 'TS3SERVER_DB_HOST=tasks.teamspeak_mariadb'
-      - 'TS3SERVER_DB_USER=root'
+      - 'TS3SERVER_DB_USER=teamspeak'
       - "TS3SERVER_DB_PASSWORD={{ teamspeak_db_password }}"
       - 'TS3SERVER_DB_NAME=teamspeak'
       - 'TS3SERVER_DB_WAITUNTILREADY=30'
