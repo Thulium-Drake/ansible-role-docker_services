@@ -44,7 +44,6 @@
       - 'PORT=3000'
       - "ROOT_URL=https://{{ rocketchat_app_name }}.{{ traefik_domain }}"
       - 'MONGO_URL=mongodb://rocketchat_mongo:27017/rocketchat'
-      - 'MONGO_OPLOG_URL=mongodb://rocketchat_mongo:27017/local'
       - 'Accounts_UseDNSDomainCheck=True'
     networks:
       - 'rocketchat_backend'
