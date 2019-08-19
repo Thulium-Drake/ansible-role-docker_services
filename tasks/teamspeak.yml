@@ -52,14 +52,14 @@
     networks:
       - 'teamspeak_backend'
     publish:
-      - published_port: '9987'
-        target_port: '9987'
+      - published_port: 9987
+        target_port: 9987
         protocol: 'udp'
-      - published_port: '10011'
-        target_port: '10011'
+      - published_port: 10011
+        target_port: 10011
         protocol: 'tcp'
-      - published_port: '30033'
-        target_port: '30033'
+      - published_port: 30033
+        target_port: 30033
         protocol: 'tcp'
     mounts:
       - source: "{{ docker_data_dir }}/teamspeak_data"

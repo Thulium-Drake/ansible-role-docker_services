@@ -14,6 +14,7 @@ The catalogus currently contains:
 * DB_backup: a docker that will periodically run a script to tell all mariadb containers found to dump their databases on the shared storage
 * Kanboard: A Kanban board with a webinterface
 * Factorio server: A game where you manage a automated factory and defend it against the neighbors
+* Factorio server: A game where you can build things and fight the dragon in the Netherrealm!
 * Teamspeak server: VOIP server
 
 
