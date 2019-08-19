@@ -43,7 +43,7 @@
     env:
       - 'PORT=3000'
       - "ROOT_URL=https://{{ rocketchat_app_name }}.{{ traefik_domain }}"
-      - 'MONGO_URL=mongodb://rocketchat_mongo:27017/rocketchat'
+      - 'MONGO_URL=mongodb://tasks.rocketchat_mongo:27017/rocketchat'
       - 'Accounts_UseDNSDomainCheck=True'
     networks:
       - 'rocketchat_backend'
