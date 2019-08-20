@@ -12,7 +12,7 @@
   loop:
     - {name: 'rocketchat_db/db', owner: '999'}
     - {name: 'rocketchat_db/dump', owner: '999'}
-    - {name: 'rocketchat_data'}
+    - {name: 'rocketchat_data', owner: '999'}
   loop_control:
     loop_var: 'dir'
 
@@ -35,6 +35,8 @@
     restart_config:
       condition: "{{ restart_condition }}"
     user: null
+
+#mongo localhost/rocketchat --eval "rs.initiate({ _id: 'rs0', members: [ { _id: 0, host: 'localhost:27017' } ]})" 
 
 - name: 'Deploy Rocket.Chat'
   docker_swarm_service:
