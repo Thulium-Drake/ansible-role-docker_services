@@ -48,4 +48,6 @@ kanboard_app_name: 'kanboard'
 
 minecraft_server_type: 'VANILLA'
 
+factorio_server_release: 'stable'
+
 rocketchat_app_name: 'rocketchat'

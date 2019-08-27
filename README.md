@@ -14,8 +14,9 @@ The catalogus currently contains:
 * DB_backup: a docker that will periodically run a script to tell all mariadb containers found to dump their databases on the shared storage
 * Kanboard: A Kanban board with a webinterface
 * Factorio server: A game where you manage a automated factory and defend it against the neighbors
-* Factorio server: A game where you can build things and fight the dragon in the Netherrealm!
+* Minecraft server: A game where you can build things and fight the dragon in the Netherrealm!
 * Teamspeak server: VOIP server
+* Rocket chat: A selfhosted alternative to Slack and others
 
 
 This role has a few mandatory parts that will be provisioned which (most, if not all) other services depend upon:
