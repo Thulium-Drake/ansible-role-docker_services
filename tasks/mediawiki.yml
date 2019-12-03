@@ -59,9 +59,9 @@
         target: '/var/www/html/images'
         type: 'bind'
     labels:
-      traefik.port: '80'
-      traefik.docker.network: 'traefik_backend'
-      traefik.frontend.rule: "Host:{{ mediawiki_app_name }}.{{ traefik_domain }}"
+      traefik.http.routers.mediawiki.rule: "Host(`{{ mediawiki_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.mediawiki.tls: "true"
+      traefik.http.services.mediawiki.loadbalancer.server.port: '80'
     mode: 'replicated'
     replicas: 1
     restart_config:

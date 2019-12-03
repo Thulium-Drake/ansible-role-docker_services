@@ -1,0 +1,4 @@
+[tls]
+  [[tls.certificate]]
+    certFile = "/certs/traefik.crt"
+    keyFile = "/certs/traefik.key"

@@ -52,9 +52,9 @@
       - 'rocketchat_backend'
       - 'traefik_backend'
     labels:
-      traefik.port: '3000'
-      traefik.docker.network: 'traefik_backend'
-      traefik.frontend.rule: "Host:{{ rocketchat_app_name }}.{{ traefik_domain }}"
+      traefik.http.routers.rocketchat.rule: "Host(`{{ rocketchat_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.rocketchat.tls: "true"
+      traefik.http.services.rocketchat.loadbalancer.server.port: '3000'
     mounts:
       - source: "{{ docker_data_dir }}/rocketchat_data"
         target: '/app/uploads'

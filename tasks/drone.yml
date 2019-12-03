@@ -54,10 +54,9 @@
       - 'DRONE_AGENTS_ENABLED=true'
       - 'DRONE_JSONNET_ENABLED=true'
     labels:
-      traefik.backend.loadbalancer.sticky: 'true'
-      traefik.docker.network: 'traefik_backend'
-      traefik.port: '80'
-      traefik.frontend.rule: "Host:{{ drone_app_name }}.{{ traefik_domain }}"
+      traefik.http.routers.drone.rule: "Host(`{{ drone_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.drone.tls: "true"
+      traefik.http.services.drone.loadbalancer.server.port: '80'
     mounts:
       - source: '/var/run/docker.sock'
         target: '/var/run/docker.sock'
