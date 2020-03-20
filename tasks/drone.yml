@@ -81,10 +81,14 @@
       - "DRONE_RUNNER_CAPACITY={{ drone_runner_cap }}"
       - 'DRONE_RPC_HOST=tasks.drone'
       - "DRONE_RPC_SECRET={{ drone_agent_rpc_secret }}"
+      - 'DRONE_DOCKER_CONFIG=/root/.docker/config.json'
     networks:
       - 'drone_backend'
     mode: 'global'
     mounts:
+      - source: '/root/.docker/config.json'
+        target: '/root/.docker/config.json'
+        type: 'bind'
       - source: '/var/run/docker.sock'
         target: '/var/run/docker.sock'
         type: 'bind'

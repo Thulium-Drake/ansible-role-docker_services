@@ -2,6 +2,11 @@
 - name: 'Set up Docker Swarm'
   include_tasks: 'docker_swarm.yml'
 
+- name: 'Ensure config.json exists'
+  file:
+    path: '/root/.docker/config.json'
+    state: 'touch'
+
 - name: "Deploy services"
   include_tasks: "{{ container }}.yml"
   loop: "{{ mandatory_services + enabled_services }}"
