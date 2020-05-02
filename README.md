@@ -1,3 +1,5 @@
+[![Build Status](https://drone.element-networks.nl/api/badges/Element-Networks/ansible-role-docker_services/status.svg)](https://drone.element-networks.nl/Element-Networks/ansible-role-docker_services)
+
 # Docker services catalogue
 This role contains a collection of services that run on a Docker Swarm, each service is segmented in it's own (set of) network(s). And all persistent storage is bind-mounted into the container, this allows for placing that data on shared storage, such as NFS or GlusterFS.
 
