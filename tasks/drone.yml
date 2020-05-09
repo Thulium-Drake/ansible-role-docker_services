@@ -94,4 +94,6 @@
         type: 'bind'
     restart_config:
       condition: '{{ restart_condition }}'
+    placement:
+      constraints: "{{ drone_agent_constraints | default(omit) }}"
     user: null
