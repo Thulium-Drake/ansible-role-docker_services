@@ -2,7 +2,7 @@
 - name: 'Initialize Docker Swarm'
   docker_swarm:
     state: 'present'
-    advertise_addr: "{{ ansible_facts['default_ip4']['address'] }}"
+    advertise_addr: "{{ ansible_facts['default_ipv4']['address'] }}"
 
 - name: 'Inspect swarm'
   docker_swarm:
