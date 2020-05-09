@@ -1,4 +1,10 @@
 ---
+- name: 'Install additional python packages'
+  package:
+    name:
+      - 'python3-bcrypt'
+      - 'python3-passlib'
+
 - name: 'Create directory for container data'
   file:
     path: "{{ docker_data_dir }}/{{ dir }}"
