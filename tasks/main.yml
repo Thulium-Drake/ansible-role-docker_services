@@ -2,6 +2,11 @@
 - name: 'Set up Docker Swarm'
   include_tasks: 'docker_swarm.yml'
 
+- name: 'Ensure .docker directory exists'
+  file:
+    path: '/root/.docker'
+    state: 'directory'
+
 - name: 'Ensure config.json exists'
   file:
     path: '/root/.docker/config.json'
