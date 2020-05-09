@@ -11,6 +11,9 @@ do
     done
   done
 
+  # Clean up registry
+  docker exec -it $(docker ps | grep registry: | awk '{print $1}') registry garbage-collect -m /etc/docker/registry/config.yml
+
   docker system prune -af --volumes
   sleep {{ docker_janitor_delay }}
 done
