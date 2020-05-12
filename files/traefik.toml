@@ -1,4 +1,5 @@
-[tls]
-  [[tls.certificate]]
-    certFile = "/certs/traefik.crt"
-    keyFile = "/certs/traefik.key"
+[tls.stores]
+  [tls.sotres.default]
+    [tls.stores.default.defaultCertificate]
+      certFile = "/certs/traefik.crt"
+      keyFile = "/certs/traefik.key"
