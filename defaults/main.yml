@@ -53,10 +53,9 @@ factorio_server_release: 'stable'
 
 avorion_server_image: 'registry.example.com/avorion-server'   # Avorion doesn't make their own image,
                                                               # set this to the URL you wish to use
-avorion_server_release: 'latest' 
+avorion_server_release: 'latest'
 avorion_galaxy_name: 'default_galaxy'                         # Foldername in which the game is saved
 avorion_server_name: 'Some Avorion server'                    # Servername as seen in the game browser
 avorion_admin: '123'                                          # SteamIDs of server admins
-avorion_public: false                                         # Whether or not the server is open to the public
 
 rocketchat_app_name: 'rocketchat'

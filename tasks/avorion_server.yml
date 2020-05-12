@@ -17,7 +17,6 @@
       - "GALAXYNAME={{ avorion_galaxy_name }}"
       - "ADMIN={{ avorion_admin }}"
       - "SERVERNAME={{ avorion_server_name }}"
-      - "PUBLIC={{ avorion_public }}"
     mounts:
       - source: '{{ docker_data_dir }}/avorion_server_data'
         target: '/app/data/galaxies'
