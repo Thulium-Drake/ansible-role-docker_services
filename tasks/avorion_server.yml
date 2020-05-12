@@ -20,7 +20,7 @@
       - "PUBLIC={{ avorion_public }}"
     mounts:
       - source: '{{ docker_data_dir }}/avorion_server_data'
-        target: '/app/data'
+        target: '/app/data/galaxies'
         type: 'bind'
     mode: 'replicated'
     replicas: 1
