@@ -57,5 +57,6 @@ avorion_server_release: 'latest'
 avorion_galaxy_name: 'default_galaxy'                         # Foldername in which the game is saved
 avorion_server_name: 'Some Avorion server'                    # Servername as seen in the game browser
 avorion_admin: '123'                                          # SteamIDs of server admins
+avorion_public: false                                         # Whether or not the server is open to the public
 
 rocketchat_app_name: 'rocketchat'

@@ -29,8 +29,8 @@
     publish:
       - published_port: 27000
         target_port: 27000
-      - published_port: 27003
-        target_port: 27003
+      - published_port: 27000
+        target_port: 27000
         protocol: 'udp'
       - published_port: 27003
         target_port: 27003
