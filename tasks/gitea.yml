@@ -38,7 +38,7 @@
 - name: 'Deploy Gitea'
   docker_swarm_service:
     name: 'gitea'
-    image: 'gitea/gitea'
+    image: "gitea/gitea:{{ gitea_release }}"
     env:
       - 'DB_TYPE=mysql'
       - 'DB_HOST=tasks.gitea_mariadb'

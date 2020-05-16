@@ -38,7 +38,7 @@
 - name: 'Deploy Drone'
   docker_swarm_service:
     name: 'drone'
-    image: 'drone/drone'
+    image: "drone/drone:{{ drone_server_release }}"
     env:
       - 'DRONE_USER_CREATE=username:root,admin:true'
       - 'DRONE_DATABASE_DRIVER=mysql'
@@ -76,7 +76,7 @@
 - name: 'Deploy Drone agents'
   docker_swarm_service:
     name: 'drone_agent'
-    image: 'drone/agent'
+    image: "drone/agent:{{ drone_agent_release }}"
     env:
       - "DRONE_RUNNER_CAPACITY={{ drone_runner_cap }}"
       - 'DRONE_RPC_HOST=tasks.drone'

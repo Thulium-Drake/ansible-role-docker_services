@@ -26,9 +26,13 @@ db_root_password: 'StoreAllTheData!'            # Database root password for all
 db_backup_interval: '86400'                     # Interval in seconds when to run DB backups
 
 gitea_app_name: 'gitea'
+gitea_release: 'latest'
+
 gitea_db_password: 'GitRocksYourSocksOff'
 
 drone_app_name: 'drone'
+drone_server_release: 'latest'
+drone_agent_release: 'latest'
 drone_db_password: 'NotSoSecretPassword'
 drone_runner_cap: 2                                         # Amount of jobs that can simultaneously run
 drone_agent_rpc_secret: 'AllYourCompileJobsAreBelongToUs'   # RPC secret to connect Drone agents
