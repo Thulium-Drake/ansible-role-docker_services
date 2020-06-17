@@ -11,6 +11,8 @@
   file:
     path: '/root/.docker/config.json'
     state: 'touch'
+  access_time: 'preserve'
+  modification_time: 'preserve'
 
 - name: "Deploy services"
   include_tasks: "{{ container }}.yml"
