@@ -47,7 +47,7 @@
       - 'traefik_backend'
       - 'portainer_agent_network'
     labels:
-      traefik.http.routers.portainer.rule: "Host(`{{ portainer_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.portainer.rule: "HostHeader(`{{ portainer_app_name }}.{{ traefik_domain }}`)"
       traefik.http.routers.portainer.tls: "true"
       traefik.http.services.portainer.loadbalancer.server.port: '9000'
     mode: 'replicated'

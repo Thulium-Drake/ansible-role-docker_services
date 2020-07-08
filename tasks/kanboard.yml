@@ -54,7 +54,7 @@
       - 'kanboard_backend'
       - 'traefik_backend'
     labels:
-      traefik.http.routers.kanboard.rule: "Host(`{{ kanboard_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.kanboard.rule: "HostHeader(`{{ kanboard_app_name }}.{{ traefik_domain }}`)"
       traefik.http.routers.kanboard.tls: "true"
       traefik.http.services.kanboard.loadbalancer.server.port: '80'
     mode: 'replicated'

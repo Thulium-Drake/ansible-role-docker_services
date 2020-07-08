@@ -95,7 +95,7 @@
     labels:
       traefik.http.services.awx.loadbalancer.server.port: '8052'
       traefik.http.routers.awx.tls: "true"
-      traefik.http.routers.awx.rule: "Host(`{{ awx_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.awx.rule: "HostHeader(`{{ awx_app_name }}.{{ traefik_domain }}`)"
     mode: 'replicated'
     replicas: 1
     restart_config:

@@ -52,7 +52,7 @@
       - 'rocketchat_backend'
       - 'traefik_backend'
     labels:
-      traefik.http.routers.rocketchat.rule: "Host(`{{ rocketchat_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.rocketchat.rule: "HostHeader(`{{ rocketchat_app_name }}.{{ traefik_domain }}`)"
       traefik.http.routers.rocketchat.tls: "true"
       traefik.http.services.rocketchat.loadbalancer.server.port: '3000'
     mounts:

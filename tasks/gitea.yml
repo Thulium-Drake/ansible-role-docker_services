@@ -60,7 +60,7 @@
       - published_port: 2222
         target_port: 2222
     labels:
-      traefik.http.routers.gitea.rule: "Host(`{{ gitea_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.gitea.rule: "HostHeader(`{{ gitea_app_name }}.{{ traefik_domain }}`)"
       traefik.http.routers.gitea.tls: "true"
       traefik.http.services.gitea.loadbalancer.server.port: '3000'
     mode: 'replicated'

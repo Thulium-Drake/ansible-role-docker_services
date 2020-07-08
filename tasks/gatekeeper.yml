@@ -26,4 +26,4 @@
       traefik.backend.loadbalancer.sticky: 'true'
       traefik.docker.network: 'traefik_backend'
       traefik.port: '3000'
-      traefik.frontend.rule: "Host:{{ drone_app_name }}.{{ traefik_domain }}"
+      traefik.frontend.rule: "HostHeader:{{ drone_app_name }}.{{ traefik_domain }}"

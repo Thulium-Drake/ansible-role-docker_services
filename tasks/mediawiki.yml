@@ -61,7 +61,7 @@
         target: '/var/www/html/images'
         type: 'bind'
     labels:
-      traefik.http.routers.mediawiki.rule: "Host(`{{ mediawiki_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.mediawiki.rule: "HostHeader(`{{ mediawiki_app_name }}.{{ traefik_domain }}`)"
       traefik.http.routers.mediawiki.tls: "true"
       traefik.http.services.mediawiki.loadbalancer.server.port: '80'
     mode: 'replicated'
