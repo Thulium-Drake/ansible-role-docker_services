@@ -74,7 +74,7 @@
       - 'awx_backend'
       - 'traefik_backend'
     labels:
-      traefik.http.services.awx.loadbalancer.server.port: '8052'
+      traefik.http.services.awx.loadbalancer.server.port: '8051'
       traefik.http.routers.awx.tls: "true"
       traefik.http.routers.awx.rule: "HostHeader(`{{ awx_app_name }}.{{ traefik_domain }}`)"
     mode: 'replicated'
