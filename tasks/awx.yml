@@ -15,13 +15,6 @@
   loop_control:
     loop_var: 'dir'
 
-- name: 'Place SECRET_KEY (workaround for ansible/awx #4168)'
-  copy:
-    dest: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
-    owner: '1000'
-    mode: 0440
-    content: "{{ awx_secret_key }}"
-
 - name: 'Deploy Postgres for AWX'
   docker_swarm_service:
     name: 'awx_pgsql'
@@ -41,22 +34,10 @@
       condition: "{{ restart_condition }}"
     user: null
 
-- name: 'Deploy Membached for AWX'
-  docker_swarm_service:
-    name: 'awx_memcached'
-    image: 'memcached:alpine'
-    networks:
-      - 'awx_backend'
-    mode: 'replicated'
-    replicas: 1
-    restart_config:
-      condition: '{{ restart_condition }}'
-    user: null
-
-- name: 'Deploy AWX Web'
+- name: 'Deploy AWX'
   docker_swarm_service:
     name: 'awx_web'
-    image: 'ansible/awx_web'
+    image: 'ansible/awx'
     env:
       - "SECRET_KEY={{ awx_secret_key }}"
       - 'DATABASE_USER=postgres'
@@ -64,8 +45,6 @@
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
       - 'DATABASE_HOST=tasks.awx_pgsql'
-      - 'MEMCACHED_HOST=tasks.awx_memcached'
-      - 'MEMCACHED_PORT=11211'
     mounts:
       - source: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
         target: '/etc/tower/SECRET_KEY'
@@ -74,7 +53,7 @@
       - 'awx_backend'
       - 'traefik_backend'
     labels:
-      traefik.http.services.awx.loadbalancer.server.port: '8051'
+      traefik.http.services.awx.loadbalancer.server.port: '8052'
       traefik.http.routers.awx.tls: "true"
       traefik.http.routers.awx.rule: "HostHeader(`{{ awx_app_name }}.{{ traefik_domain }}`)"
     mode: 'replicated'
@@ -82,32 +61,3 @@
     restart_config:
       condition: '{{ restart_condition }}'
     user: null
-
-- name: 'Deploy AWX Task'
-  docker_swarm_service:
-    name: 'awx_task'
-    hostname: 'awx'
-    image: 'ansible/awx_task'
-    env:
-      - "SECRET_KEY={{ awx_secret_key }}"
-      - 'DATABASE_USER=postgres'
-      - "DATABASE_PASSWORD={{ awx_db_password }}"
-      - 'DATABASE_NAME=awx'
-      - 'DATABASE_PORT=5432'
-      - 'DATABASE_HOST=tasks.awx_pgsql'
-      - 'MEMCACHED_HOST=tasks.awx_memcached'
-      - 'MEMCACHED_PORT=11211'
-    networks:
-      - 'awx_backend'
-    mounts:
-      - source: "{{ docker_data_dir }}/awx_data/projects"
-        target: '/var/lib/awx/projects/'
-        type: 'bind'
-      - source: "{{ docker_data_dir }}/awx_data/SECRET_KEY"
-        target: '/etc/tower/SECRET_KEY'
-        type: 'bind'
-    mode: 'replicated'
-    replicas: 1
-    restart_config:
-      condition: '{{ restart_condition }}'
-    user: 'root'
