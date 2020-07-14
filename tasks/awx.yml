@@ -41,20 +41,6 @@
       condition: "{{ restart_condition }}"
     user: null
 
-- name: 'Deploy RabbitMQ for AWX'
-  docker_swarm_service:
-    name: 'awx_rabbitmq'
-    image: 'rabbitmq:3'
-    env:
-      - 'RABBITMQ_DEFAULT_VHOST=awx'
-    networks:
-      - 'awx_backend'
-    mode: 'replicated'
-    replicas: 1
-    restart_config:
-      condition: '{{ restart_condition }}'
-    user: null
-
 - name: 'Deploy Membached for AWX'
   docker_swarm_service:
     name: 'awx_memcached'
@@ -78,11 +64,6 @@
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
       - 'DATABASE_HOST=tasks.awx_pgsql'
-      - 'RABBITMQ_USER=guest'
-      - 'RABBITMQ_PASSWORD=guest'
-      - 'RABBITMQ_HOST=tasks.awx_rabbitmq'
-      - 'RABBITMQ_PORT=5672'
-      - 'RABBITMQ_VHOST=awx'
       - 'MEMCACHED_HOST=tasks.awx_memcached'
       - 'MEMCACHED_PORT=11211'
     mounts:
@@ -114,11 +95,6 @@
       - 'DATABASE_NAME=awx'
       - 'DATABASE_PORT=5432'
       - 'DATABASE_HOST=tasks.awx_pgsql'
-      - 'RABBITMQ_USER=guest'
-      - 'RABBITMQ_PASSWORD=guest'
-      - 'RABBITMQ_HOST=tasks.awx_rabbitmq'
-      - 'RABBITMQ_PORT=5672'
-      - 'RABBITMQ_VHOST=awx'
       - 'MEMCACHED_HOST=tasks.awx_memcached'
       - 'MEMCACHED_PORT=11211'
     networks:
