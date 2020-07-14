@@ -4,7 +4,6 @@ enabled_services:
   - 'gitea'
   - 'drone'
   - 'registry'
-  - 'awx'
 
 docker_edition: 'ce'
 
@@ -37,10 +36,6 @@ drone_db_password: 'NotSoSecretPassword'
 drone_runner_cap: 2                                         # Amount of jobs that can simultaneously run
 drone_agent_rpc_secret: 'AllYourCompileJobsAreBelongToUs'   # RPC secret to connect Drone agents
 #drone_agent_constraints: 'node.role != manager'            # Optional placement constraints for the agents
-
-awx_app_name: 'not-tower'
-awx_db_password: 'AutomateAllTheThings!'
-awx_secret_key: 'FasterThenLight'
 
 docker_janitor_delay: 3600                                # Interval for Janitor to run 'docker prune system -f'
 
