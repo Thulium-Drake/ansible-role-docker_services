@@ -5,8 +5,7 @@
     advertise_addr: "{{ ansible_facts['default_ipv4']['address'] }}"
 
 - name: 'Inspect swarm'
-  docker_swarm:
-    state: 'inspect'
+  docker_swarm_info:
   register: 'swarm_info'
 
 - name: 'Set Swarm master IP fact'
@@ -29,6 +28,7 @@
       - "{{ swarm_master_addr }}"
     join_token: "{{ swarm_info['swarm_facts']['JoinTokens']['Worker'] }}"
     advertise_addr: "{{ hostvars[worker]['ansible_default_ipv4']['address'] }}"
+    labels: "{{ hostvars[worker]['docker_swarm_labels'] | default(omit) }}"
   delegate_to: "{{ worker }}"
   loop: "{{ query('inventory_hostnames', 'docker_workers') }}"
   loop_control:
