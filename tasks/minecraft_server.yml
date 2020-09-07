@@ -10,7 +10,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy Minecraft Server'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'minecraft_server'
     image: 'itzg/minecraft-server'
     env:

@@ -7,7 +7,7 @@
     gatekeeper_upstream_url: 'http://tasks.appname'
 
 - name: 'Deploy Keycloak Gatekepeer for Appname'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'appname_gatekeeper'
     image: 'keycloak/keycloak-gatekeeper'
     env:

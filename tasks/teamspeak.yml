@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  docker_network:
+  community.general.docker_network:
     name: 'teamspeak_backend'
     driver: 'overlay'
 
@@ -16,7 +16,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy MariaDB for TeamSpeak'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'teamspeak_mariadb'
     image: 'mariadb'
     env:
@@ -37,7 +37,7 @@
     user: null
 
 - name: 'Deploy TeamSpeak'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'teamspeak'
     image: 'teamspeak'
     env:

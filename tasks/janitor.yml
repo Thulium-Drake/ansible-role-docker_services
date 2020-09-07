@@ -17,7 +17,7 @@
     group: 'root'
 
 - name: 'Deploy Docker Janitor'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'janitor'
     command: '/clean_docker.sh'
     image: 'docker'

@@ -17,7 +17,7 @@
     group: 'root'
 
 - name: 'Deploy Docker DB Backupper'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'db_backup'
     command: '/db_backup.sh'
     image: 'docker'

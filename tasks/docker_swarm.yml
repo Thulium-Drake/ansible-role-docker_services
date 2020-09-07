@@ -1,11 +1,11 @@
 ---
 - name: 'Initialize Docker Swarm'
-  docker_swarm:
+  community.general.docker_swarm:
     state: 'present'
     advertise_addr: "{{ ansible_facts['default_ipv4']['address'] }}"
 
 - name: 'Inspect swarm'
-  docker_swarm_info:
+  community.general.docker_swarm_info:
   register: 'swarm_info'
 
 - name: 'Set Swarm master IP fact'
@@ -22,7 +22,7 @@
     loop_var: 'worker'
 
 - name: 'Join workers to Swarm'
-  docker_swarm:
+  community.general.docker_swarm:
     state: 'join'
     remote_addrs:
       - "{{ swarm_master_addr }}"

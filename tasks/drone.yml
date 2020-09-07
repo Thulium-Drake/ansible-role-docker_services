@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  docker_network:
+  community.general.docker_network:
     name: 'drone_backend'
     driver: 'overlay'
 
@@ -15,7 +15,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy MariaDB for Drone'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'drone_mariadb'
     image: 'mariadb'
     env:
@@ -36,7 +36,7 @@
     user: null
 
 - name: 'Deploy Drone'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'drone'
     image: "drone/drone:{{ drone_server_release }}"
     env:
@@ -74,7 +74,7 @@
     user: null
 
 - name: 'Deploy Drone agents'
-  docker_swarm_service:
+  community.general.docker_swarm_service:
     name: 'drone_agent'
     image: "drone/agent:{{ drone_agent_release }}"
     env:
