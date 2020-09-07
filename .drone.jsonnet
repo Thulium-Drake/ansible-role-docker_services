@@ -5,7 +5,7 @@
     steps: [
       {
         name: "Lint code",
-        image: "quay.io/ansible/molecule",
+        image: "registry.element-networks.nl/tools/molecule",
         commands: [
           "molecule --version",
           "molecule lint",
@@ -22,7 +22,7 @@
     steps: [
       {
         name: "Ansible Galaxy",
-        image: "quay.io/ansible/molecule",
+        image: "registry.element-networks.nl/tools/molecule",
         commands: [
           "ansible-galaxy login --github-token $$GITHUB_TOKEN",
           "ansible-galaxy import Thulium-Drake ansible-role-docker_services --role-name=docker_services",
