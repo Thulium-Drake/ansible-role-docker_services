@@ -7,6 +7,7 @@
         name: "Lint code",
         image: "quay.io/ansible/molecule",
         commands: [
+          "molecule --version",
           "molecule lint",
           "molecule syntax"
         ]
