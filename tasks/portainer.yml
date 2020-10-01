@@ -35,7 +35,7 @@
 - name: 'Deploy Portainer'
   community.general.docker_swarm_service:
     name: 'portainer'
-    image: 'portainer/portainer'
+    image: 'portainer/portainer-ce'
     command: '/portainer -H tcp://tasks.portainer_agent:9001 --tlsskipverify'
     env:
       - 'AGENT_CLUSTER_ADDR=tasks.portainer_agent'
