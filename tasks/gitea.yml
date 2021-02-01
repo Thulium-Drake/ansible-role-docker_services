@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  community.general.docker_network:
+  community.docker.docker_network:
     name: 'gitea_backend'
     driver: 'overlay'
 
@@ -15,7 +15,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy MariaDB for Gitea'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'gitea_mariadb'
     image: 'mariadb'
     env:
@@ -36,7 +36,7 @@
     user: null
 
 - name: 'Deploy Gitea'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'gitea'
     image: "gitea/gitea:{{ gitea_release }}"
     env:

@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  community.general.docker_network:
+  community.docker.docker_network:
     name: 'portainer_agent_network'
     driver: 'overlay'
 
@@ -10,7 +10,7 @@
     state: 'directory'
 
 - name: 'Deploy Portainer Agent'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'portainer_agent'
     image: 'portainer/agent'
     env:
@@ -33,7 +33,7 @@
     user: null
 
 - name: 'Deploy Portainer'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'portainer'
     image: 'portainer/portainer-ce'
     command: '/portainer -H tcp://tasks.portainer_agent:9001 --tlsskipverify'

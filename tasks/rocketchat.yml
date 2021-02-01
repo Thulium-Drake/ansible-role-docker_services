@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  community.general.docker_network:
+  community.docker.docker_network:
     name: 'rocketchat_backend'
     driver: 'overlay'
 
@@ -17,7 +17,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy Mongo for Rocket.Chat'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'rocketchat_mongo'
     image: 'mongo:4'
     command: 'mongod --oplogSize 128 --replSet rs0 --bind_ip_all'
@@ -37,7 +37,7 @@
     user: null
 
 - name: 'Deploy Rocket.Chat'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'rocketchat'
     image: 'rocket.chat'
     env:

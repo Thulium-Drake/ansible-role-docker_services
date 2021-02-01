@@ -30,6 +30,7 @@ This role has a few mandatory parts that will be provisioned which (most, if not
 # Deployment
 In order to use the services from this catalogue, do the following:
 
+* Install the ```community.docker``` collection on your Ansible controller
 * Install docker (tip: use Jeff Geerlings' Docker role)
 * Create the {{ docker_data_dir }}, preferably on shared storage
 * Copy ``` defaults/main.yml ``` and configure it

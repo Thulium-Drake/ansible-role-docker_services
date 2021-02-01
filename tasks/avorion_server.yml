@@ -10,7 +10,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy Avorion Server'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'avorion_server'
     image: "{{ avorion_server_image }}:{{ avorion_server_release }}"
     env:

@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  community.general.docker_network:
+  community.docker.docker_network:
     name: 'mediawiki_backend'
     driver: 'overlay'
 
@@ -26,7 +26,7 @@
     modification_time: 'preserve'
 
 - name: 'Deploy MariaDB for Mediawiki'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'mediawiki_mariadb'
     image: 'mariadb'
     env:
@@ -47,7 +47,7 @@
     user: null
 
 - name: 'Deploy Mediawiki'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'mediawiki'
     image: "{{ mediawiki_image }}"
     networks:

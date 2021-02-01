@@ -10,7 +10,7 @@
     loop_var: 'dir'
 
 - name: 'Deploy Factorio Server'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'factorio_server'
     image: "factoriotools/factorio:{{ factorio_server_release }}"
     mounts:

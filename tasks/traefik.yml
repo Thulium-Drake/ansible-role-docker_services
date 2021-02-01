@@ -1,6 +1,6 @@
 ---
 - name: 'Create network'
-  community.general.docker_network:
+  community.docker.docker_network:
     name: 'traefik_backend'
     driver: 'overlay'
 
@@ -38,7 +38,7 @@
     dest: "{{ docker_data_dir }}/traefik_data/traefik.toml"
 
 - name: 'Deploy Traefik'
-  community.general.docker_swarm_service:
+  community.docker.docker_swarm_service:
     name: 'traefik'
     image: 'traefik'
     command:
