@@ -1,32 +1,33 @@
 ---
 galaxy_info:
-  author: 'Jeffrey van Pelt'
-  description: 'Docker services catalogue'
+  author: thulium_drake
+  description: Docker services catalogue
   company:
-  role_name: 'docker_services'
+  role_name: docker_services
 
-  license: 'GPLv3'
+  license: GPLv3
 
   min_ansible_version: 2.8
 
   platforms:
-    - name: 'EL'
+    - name: EL
       versions:
         - 7
-    - name: 'Debian'
+    - name: Debian
       versions:
-        - 'stretch'
-    - name: 'Ubuntu'
+        - buster
+        - stretch
+    - name: Ubuntu
       versions:
-        - 'bionic'
+        - bionic
 
   galaxy_tags:
-    - 'docker'
-    - 'awx'
-    - 'traefik'
-    - 'portainer'
-    - 'provisioning'
-    - 'drone'
-    - 'gitea'
+    - docker
+    - awx
+    - traefik
+    - portainer
+    - provisioning
+    - drone
+    - gitea
 
 dependencies: []
