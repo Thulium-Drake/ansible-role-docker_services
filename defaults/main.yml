@@ -60,6 +60,7 @@ avorion_admin: '123'                                          # SteamIDs of serv
 rocketchat_app_name: 'rocketchat'
 
 peertube_fqdn: 'peertube.example.com'                     # NOTE: this can NOT be changed after initialization
+                                                          # Does not use 'normal' app_name setup for this exact reason
 peertube_release: 'production-buster'
 peertube_postgres_release: '13-alpine'
 peertube_redis_release: '6-alpine'
