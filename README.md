@@ -19,6 +19,7 @@ The catalogus currently contains:
 * Minecraft server: A game where you can build things and fight the dragon in the Netherrealm!
 * Teamspeak server: VOIP server
 * Rocket chat: A selfhosted alternative to Slack and others
+* PeerTube: A free and decentralized alternative to video platforms
 
 
 This role has a few mandatory parts that will be provisioned which (most, if not all) other services depend upon:
