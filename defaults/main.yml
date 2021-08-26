@@ -59,9 +59,7 @@ avorion_admin: '123'                                          # SteamIDs of serv
 
 rocketchat_app_name: 'rocketchat'
 
-peertube_app_name: 'peertube'                              # 'Internal' name for the instance
-#peertube_fqdn: 'peertube.example.com'                     # NOTE: this can NOT be changed after initialization
-                                                           # defaults to {{ peertube_app_name }}.{{ traefik_domain}}
+peertube_fqdn: 'peertube.example.com'                     # NOTE: this can NOT be changed after initialization
 peertube_release: 'production-buster'
 peertube_postgres_release: '13-alpine'
 peertube_redis_release: '6-alpine'

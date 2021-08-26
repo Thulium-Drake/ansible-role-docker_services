@@ -74,7 +74,7 @@
       - "PEERTUBE_DB_PASSWORD={{ peertube_db_password }}"
       - 'PEERTUBE_DB_SSL=false'
       - 'PEERTUBE_DB_HOSTNAME=tasks.peertube_postgres'
-      - "PEERTUBE_WEBSERVER_HOSTNAME={{ peertube_fqdn | default(peertube_app_name + '.' + traefik_domain) }}"
+      - "PEERTUBE_WEBSERVER_HOSTNAME={{ peertube_fqdn }}"
       - 'PEERTUBE_REDIS_HOSTNAME=tasks.peertube_redis'
       - 'PEERTUBE_REDIS_PORT=6379'
       - "PEERTUBE_ADMIN_EMAIL={{ peertube_admin_email }}"
@@ -98,8 +98,8 @@
       - published_port: 1935
         target_port: 1935
     labels:
-      traefik.http.routers.peertube.rule: "HostHeader(`{{ peertube_app_name }}.{{ traefik_domain }}`)"
-      traefik.http.routers.peertube.tls: "true"
+      traefik.http.routers.peertube_fqdn.rule: "HostHeader(`{{ peertube_fqdn }}`)"
+      traefik.http.routers.peertube_fqdn.tls: "true"
       traefik.http.services.peertube.loadbalancer.server.port: '9000'
     mode: 'replicated'
     replicas: 1
