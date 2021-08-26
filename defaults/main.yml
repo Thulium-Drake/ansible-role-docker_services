@@ -58,3 +58,17 @@ avorion_server_name: 'Some Avorion server'                    # Servername as se
 avorion_admin: '123'                                          # SteamIDs of server admins
 
 rocketchat_app_name: 'rocketchat'
+
+peertube_app_name: 'peertube'                              # 'Internal' name for the instance
+#peertube_fqdn: 'peertube.example.com'                     # NOTE: this can NOT be changed after initialization
+                                                           # defaults to {{ peertube_app_name }}.{{ traefik_domain}}
+peertube_release: 'production-buster'
+peertube_postgres_release: '13-alpine'
+peertube_redis_release: '6-alpine'
+peertube_db_password: 'StreamTheWorld!'
+peertube_admin_email: 'streamerboss@example.com'
+peertube_smtp_server: 'mail.example.com'
+peertube_smtp_port: 25
+peertube_smtp_from: "peertube-noreply@{{ traefik_domain }}"
+#peertube_smtp_user: 'peertube@example.com'                # Leave undefined if the SMTP server requires
+#peertube_smtp_password: 'StreamTheWorld!'                 # no authentication
