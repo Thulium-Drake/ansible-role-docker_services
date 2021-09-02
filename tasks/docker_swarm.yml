@@ -17,7 +17,7 @@
     gather_subset: 'network'
   delegate_to: "{{ worker }}"
   delegate_facts: true
-  loop: "{{ query('inventory_hostnames', 'docker_workers') }}"
+  loop: "{{ query('inventory_hostnames', docker_worker_group) }}"
   loop_control:
     loop_var: 'worker'
 
@@ -30,6 +30,6 @@
     advertise_addr: "{{ hostvars[worker]['ansible_default_ipv4']['address'] }}"
     labels: "{{ hostvars[worker]['docker_swarm_labels'] | default(omit) }}"
   delegate_to: "{{ worker }}"
-  loop: "{{ query('inventory_hostnames', 'docker_workers') }}"
+  loop: "{{ query('inventory_hostnames', docker_worker_group) }}"
   loop_control:
     loop_var: 'worker'

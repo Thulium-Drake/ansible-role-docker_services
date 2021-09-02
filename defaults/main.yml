@@ -8,6 +8,7 @@ enabled_services:
 docker_edition: 'ce'
 
 docker_data_dir: '/data/docker/volumes'         # Where to store the volumes on the docker hosts
+docker_worker_group: 'docker_workers'           # Groups that contain this Swarm's workers
 
 restart_condition: 'any'
 
