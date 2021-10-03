@@ -44,6 +44,9 @@ mediawiki_db_password: 'KnowledgeIsPower'
 mediawiki_app_name: 'wiki'
 mediawiki_image: 'mediawiki'
 
+drawio_app_name: 'graphs'
+drawio_image: 'jgraph/drawio'
+
 kanboard_db_password: 'DoAllTheThings'
 kanboard_app_name: 'kanboard'
 
