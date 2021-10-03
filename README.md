@@ -6,6 +6,7 @@ This role contains a collection of services that run on a Docker Swarm, each ser
 The catalogus currently contains:
 
 * Drone: a CI/CD controller with agents (https://github.com/drone/drone)
+* Drawio: A free selfhosted diagram software for making flowcharts, process diagrams, org charts, UML, ER and network diagrams.
 * Gitea: Go powered Git server with webGUI (https://github.com/go-gitea/gitea)
 * Portainer: Docker management inferface (https://github.com/portainer/portainer)
 * AWX: Ansible Tower's upstream (https://github.com/ansible/awx)
