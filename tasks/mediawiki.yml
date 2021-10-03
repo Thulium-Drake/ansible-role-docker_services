@@ -11,7 +11,7 @@
     state: 'directory'
   loop:
     - {name: 'mediawiki_db', owner: '999'}
-    - {name: 'mediawiki_data/images', owner: '1000'}
+    - {name: 'mediawiki_data/images', owner: '33'}
   loop_control:
     loop_var: 'dir'
 
