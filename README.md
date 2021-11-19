@@ -21,6 +21,7 @@ The catalogus currently contains:
 * Teamspeak server: VOIP server
 * Rocket chat: A selfhosted alternative to Slack and others
 * PeerTube: A free and decentralized alternative to video platforms
+* VaultWarden: A free alternative server for the Bitwarden Password Manager
 
 
 This role has a few mandatory parts that will be provisioned which (most, if not all) other services depend upon:
