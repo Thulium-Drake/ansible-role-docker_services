@@ -5,6 +5,8 @@ enabled_services:
   - 'drone'
   - 'registry'
 
+docker_service_debug: false                     # Enable to see sensitive output when deploying services
+
 docker_edition: 'ce'
 
 docker_data_dir: '/data/docker/volumes'         # Where to store the volumes on the docker hosts

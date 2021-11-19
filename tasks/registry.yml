@@ -43,6 +43,7 @@
     owner: 'root'
     group: 'root'
     mode: 0640
+  no_log: "{{ not docker_service_debug }}"
 
 - name: 'Deploy Docker Registry'
   community.docker.docker_swarm_service:

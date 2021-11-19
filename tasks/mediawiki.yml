@@ -45,6 +45,7 @@
     restart_config:
       condition: "{{ restart_condition }}"
     user: null
+  no_log: "{{ not docker_service_debug }}"
 
 - name: 'Deploy Mediawiki'
   community.docker.docker_swarm_service:
@@ -69,3 +70,4 @@
     restart_config:
       condition: "{{ restart_condition }}"
     user: null
+  no_log: "{{ not docker_service_debug }}"
