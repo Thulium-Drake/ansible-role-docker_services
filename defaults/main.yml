@@ -79,6 +79,7 @@ peertube_smtp_from: "peertube-noreply@{{ traefik_domain }}"
 # peertube_smtp_password: 'StreamTheWorld!'                 # no authentication
 
 
+vaultwarden_release: 'latest'
 vaultwarden_app_name: 'vault'
 vaultwarden_signup_whitelist: 'example.com,example.net'     # Email domains that are allowed to create accounts
 vaultwarden_smtp_server: 'mail.example.com'
