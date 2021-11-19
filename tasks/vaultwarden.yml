@@ -15,7 +15,7 @@
     name: 'vaultwarden'
     image: "vaultwarden/server:{{ vaultwarden_release }}"
     env:
-      - "DOMAIN={{ vaultwarden_app_name }}.{{ traefik_domain }}"
+      - "DOMAIN=https://{{ vaultwarden_fqdn }}"
       - "SIGNUPS_DOMAINS_WHITELIST={{ vaultwarden_signup_whitelist }}"
       - "SMTP_HOST={{ vaultwarden_smtp_server }}"
       - "SMTP_PORT={{ vaultwarden_smtp_port }}"
@@ -30,7 +30,7 @@
         target: '/data'
         type: 'bind'
     labels:
-      traefik.http.routers.vaultwarden.rule: "HostHeader(`{{ vaultwarden_app_name }}.{{ traefik_domain }}`)"
+      traefik.http.routers.vaultwarden.rule: "HostHeader(`{{ vaultwarden_fqdn }}`)"
       traefik.http.routers.vaultwarden.tls: "true"
       traefik.http.services.vaultwarden.loadbalancer.server.port: '80'
     mode: 'replicated'
