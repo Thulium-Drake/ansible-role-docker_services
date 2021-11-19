@@ -81,7 +81,7 @@ vaultwarden_app_name: 'vault'
 vaultwarden_signup_whitelist: 'example.com,example.net'     # Email domains that are allowed to create accounts
 vaultwarden_smtp_server: 'mail.example.com'
 vaultwarden_smtp_port: 25
-vaultwarden_smtp_from: 'vault-noreply@example.com'
+vaultwarden_smtp_from: "vault-noreply@{{ traefik_domain }}"
 vaultwarden_smtp_ssl: false
 # vaultwarden_smtp_user: 'vaultwarden@example.com'
 # vaultwarden_smtp_password: 'SuperSecretStorageServer!'
