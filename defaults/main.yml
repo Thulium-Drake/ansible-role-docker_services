@@ -16,6 +16,7 @@ restart_condition: 'any'
 
 traefik_domain: 'dckr.example.com'              # Subdomain to put all services under
 traefik_selfsign: true                          # Selfsign the used SSL certificate
+traefik_upstream_proxy: '10.0.0.80'             # Upstream proxy to this traefik
 
 portainer_app_name: 'portainer'                 # Service name for Portainer (portainer.dckr.example.com)
 

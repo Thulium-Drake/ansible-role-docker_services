@@ -50,7 +50,10 @@
       - '--providers.file.filename=/certs/traefik.toml'
       - '--entrypoints.web.address=:80'
       - '--entrypoints.websecure.address=:443'
+      - "--entryPoints.web.forwardedHeaders.trustedIPs={{ traefik_upstream_proxy }}"
+      - "--entryPoints.websecure.forwardedHeaders.trustedIPs={{ traefik_upstream_proxy }}"
       - '--api.insecure'
+      - '--accesslog=true'
     mounts:
       - source: '/var/run/docker.sock'
         target: '/var/run/docker.sock'
@@ -66,10 +69,13 @@
     publish:
       - published_port: 80
         target_port: 80
+        mode: 'host'
       - published_port: 443
         target_port: 443
+        mode: 'host'
       - published_port: 8080
         target_port: 8080
+        mode: 'host'
     placement:
       constraints:
         - 'node.role == manager'

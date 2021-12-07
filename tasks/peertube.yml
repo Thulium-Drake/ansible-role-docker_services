@@ -65,6 +65,7 @@
       - '127.0.0.0/8'
       - 'loopback'
       - "{{ traefik_network_info['network']['IPAM']['Config'][0]['Subnet'] }}"
+      - "{{ traefik_upstream_proxy }}"
 
 - name: 'Deploy PeerTube'
   community.docker.docker_swarm_service:
