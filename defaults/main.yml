@@ -79,7 +79,6 @@ peertube_smtp_from: "peertube-noreply@{{ traefik_domain }}"
 # peertube_smtp_user: 'peertube@example.com'                # Leave undefined if the SMTP server requires
 # peertube_smtp_password: 'StreamTheWorld!'                 # no authentication
 
-
 vaultwarden_release: 'latest'
 vaultwarden_fqdn: 'vault.example.com'
 vaultwarden_signup_whitelist: 'example.com,example.net'     # Email domains that are allowed to create accounts
@@ -89,3 +88,7 @@ vaultwarden_smtp_from: "vault-noreply@{{ traefik_domain }}"
 vaultwarden_smtp_ssl: false
 # vaultwarden_smtp_user: 'vaultwarden@example.com'
 # vaultwarden_smtp_password: 'SuperSecretStorageServer!'
+
+matomo_db_password: 'TrackALLTheThings!'
+matomo_fqdn: 'analytics.example.com'  # NOTE: Matomo currently does not support configuring reverse proxies through Docker
+matomo_image_version: '4'
