@@ -92,3 +92,19 @@ server {
    }
 }
 ```
+
+## Matomo
+Matomo's first time setup is a bit finnicky, as it requires a persistent config.ini.php to work across reboots.
+
+However, the software cannot handle an empty or incomplete config file properly..
+
+So far I have been able to deploy it successfully as follows:
+
+* Deploy Matomo with the ```matomo_setup``` task list
+* Enter the docker container to retrieve the configuration
+```
+docker exec -it containerid /bin/bash
+cat /var/www/html/config/config.ini.php
+# Save the contents of this file in {{ docker_data_dir }}/matomo_data/config.ini.php
+```
+* Deploy Matomo with the 'regular' ```matomo``` task list
