@@ -11,9 +11,19 @@
     state: 'directory'
   loop:
     - {name: 'matomo_db', owner: '999'}
-    - {name: 'matomo_data'}
+    - {name: 'matomo_data', owner: '33'}
   loop_control:
     loop_var: 'dir'
+
+- name: 'Check if LocalSettings.php is present'
+  file:
+    path: "{{ docker_data_dir }}/matomo_data/config.ini.php"
+    state: 'touch'
+    owner: '33'
+    group: '33'
+    mode: 0644
+    access_time: 'preserve'
+    modification_time: 'preserve'
 
 - name: 'Deploy MariaDB for Matomo'
   community.docker.docker_swarm_service:
@@ -51,6 +61,10 @@
     networks:
       - 'matomo_backend'
       - 'traefik_backend'
+    mounts:
+      - source: "{{ docker_data_dir }}/matomo_data/config.ini.php"
+        target: '/var/www/html/config/config.ini.php'
+        type: 'bind'
     labels:
       traefik.http.routers.matomo.rule: "HostHeader(`{{ matomo_fqdn }}`)"
       traefik.http.routers.matomo.tls: "true"
