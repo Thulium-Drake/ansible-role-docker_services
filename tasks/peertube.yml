@@ -70,7 +70,7 @@
 - name: 'Deploy PeerTube'
   community.docker.docker_swarm_service:
     name: 'peertube'
-    image: "chocobozzz/peertube:{{ peertube_release }}"
+    image: "{{ peertube_image }}:{{ peertube_release }}"
     env:
       - 'PEERTUBE_DB_USERNAME=peertube'
       - "PEERTUBE_DB_PASSWORD={{ peertube_db_password }}"
