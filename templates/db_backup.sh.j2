@@ -8,7 +8,7 @@ do
     docker exec -i $container /bin/sh -c "/usr/bin/mysqldump -A -uroot -p{{ db_root_password }} | gzip > /var/lib/mysql/backup.sql.gz"
   done;
 
-  for container in $(docker ps -qf name=pgsql)
+  for container in $(docker ps -qf name=postgres)
   do
     echo "starting backup $container"
     docker exec $container /bin/sh -c "/usr/bin/pg_dumpall -U postgres | gzip > /var/lib/postgresql/data/backup.sql.gz"

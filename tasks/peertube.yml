@@ -81,8 +81,8 @@
       - 'PEERTUBE_REDIS_PORT=6379'
       - "PEERTUBE_ADMIN_EMAIL={{ peertube_admin_email }}"
       - "PEERTUBE_SMTP_HOSTNAME={{ peertube_smtp_server }}"
-      - "PEERTUBE_SMTP_USERNAME={{ peertube_smtp_user | default(omit) }}"
-      - "PEERTUBE_SMTP_PASSWORD={{ peertube_smtp_password | default(omit) }}"
+      - "PEERTUBE_SMTP_USERNAME={{ peertube_smtp_user | default(omit, true) }}"
+      - "PEERTUBE_SMTP_PASSWORD={{ peertube_smtp_password | default(omit, true) }}"
       - "PEERTUBE_SMTP_POST={{ peertube_smtp_port }}"
       - "PEERTUBE_SMTP_FROM={{ peertube_smtp_from }}"
       - "PEERTUBE_TRUST_PROXY={{ peertube_trusted_proxies | to_json }}"

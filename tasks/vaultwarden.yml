@@ -21,8 +21,8 @@
       - "SMTP_PORT={{ vaultwarden_smtp_port }}"
       - "SMTP_FROM={{ vaultwarden_smtp_from }}"
       - "SMTP_SSL={{ vaultwarden_smtp_ssl }}"
-      - "SMTP_USERNAME={{ vaultwarden_smtp_user | default(omit) }}"
-      - "SMTP_PASSWORD={{ vaultwarden_smtp_password | default(omit) }}"
+      - "SMTP_USERNAME={{ vaultwarden_smtp_user | default(omit, true) }}"
+      - "SMTP_PASSWORD={{ vaultwarden_smtp_password | default(omit, true) }}"
     networks:
       - 'traefik_backend'
     mounts:
