@@ -11,7 +11,7 @@ do
   for container in $(docker ps -qf name=postgres)
   do
     echo "starting backup $container"
-    docker exec $container /bin/sh -c "/usr/bin/pg_dumpall -U postgres | gzip > /var/lib/postgresql/data/backup.sql.gz"
+    docker exec $container /bin/sh -c "/usr/bin/pg_dumpall -U $POSTGRES_USER | gzip > /var/lib/postgresql/data/backup.sql.gz"
   done
 
   sleep {{ db_backup_interval }}
