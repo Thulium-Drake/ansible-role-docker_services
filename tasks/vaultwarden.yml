@@ -22,8 +22,8 @@
       - "SMTP_PORT={{ vaultwarden_smtp_port }}"
       - "SMTP_FROM={{ vaultwarden_smtp_from }}"
       - "SMTP_SECURITY={{ vaultwarden_smtp_ssl | ternary('tls', 'none') }}"
-      - "{{ (vaultwarden_smtp_user | length > 0) | ternary('SMTP_USERNAME=' + vaultwarden_smtp_user, '') }}"
-      - "{{ (vaultwarden_smtp_password | length > 0) | ternary('SMTP_PASSWORD=' + vaultwarden_smtp_password, '') }}"
+      - "{{ (vaultwarden_smtp_user | length > 0) | ternary('SMTP_USERNAME=' + vaultwarden_smtp_user, 'NOPE=NOPE') }}"
+      - "{{ (vaultwarden_smtp_password | length > 0) | ternary('SMTP_PASSWORD=' + vaultwarden_smtp_password, 'NOPE=NOPE') }}"
     networks:
       - 'traefik_backend'
     mounts:
