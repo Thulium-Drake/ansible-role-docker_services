@@ -16,13 +16,14 @@
     image: "vaultwarden/server:{{ vaultwarden_release }}"
     env:
       - "DOMAIN=https://{{ vaultwarden_fqdn }}"
+      - "HELO_NAME={{ vaultwarden_fqdn }}"
       - "SIGNUPS_DOMAINS_WHITELIST={{ vaultwarden_signup_whitelist }}"
       - "SMTP_HOST={{ vaultwarden_smtp_server }}"
       - "SMTP_PORT={{ vaultwarden_smtp_port }}"
       - "SMTP_FROM={{ vaultwarden_smtp_from }}"
-      - "SMTP_SSL={{ vaultwarden_smtp_ssl }}"
-      - "SMTP_USERNAME={{ vaultwarden_smtp_user | default(omit, true) }}"
-      - "SMTP_PASSWORD={{ vaultwarden_smtp_password | default(omit, true) }}"
+      - "SMTP_SECURITY={{ vaultwarden_smtp_ssl | ternary('tls', 'none') }}"
+      - "{{ (vaultwarden_smtp_user | length > 0) | ternary('SMTP_USERNAME=' + vaultwarden_smtp_user, '') }}"
+      - "{{ (vaultwarden_smtp_password | length > 0) | ternary('SMTP_PASSWORD=' + vaultwarden_smtp_password, '') }}"
     networks:
       - 'traefik_backend'
     mounts:

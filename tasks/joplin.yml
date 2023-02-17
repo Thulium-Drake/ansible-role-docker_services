@@ -58,10 +58,10 @@
       - "MAILER_HOST={{ joplin_smtp_server }}"
       - "MAILER_PORT={{ joplin_smtp_port }}"
       - "MAILER_SECURITY={{ joplin_smtp_ssl | ternary('tls', 'none') }}"
-      - "MAILER_AUTH_USER={{ joplin_smtp_user | default(omit, true) }}"
-      - "MAILER_AUTH_PASSWORD={{ joplin_smtp_password | default(omit, true) }}"
       - "MAILER_NOREPLY_NAME=JoplinServer"
       - "MAILER_NOREPLY_EMAIL={{ joplin_smtp_from }}"
+      - "{{ (joplin_smtp_user | length > 0) | ternary('MAILER_USERNAME=' + joplin_smtp_user, '') }}"
+      - "{{ (joplin_smtp_password | length > 0) | ternary('MAILER_PASSWORD=' + joplin_smtp_password, '') }}"
     networks:
       - 'joplin_backend'
       - 'traefik_backend'
