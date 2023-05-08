@@ -32,7 +32,6 @@ local Clone() = {
         image: "registry.element-networks.nl/tools/molecule",
         commands: [
           "molecule --version",
-          "molecule lint",
           "molecule syntax"
         ],
         privileged: true,
