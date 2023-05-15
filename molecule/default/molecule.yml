@@ -5,10 +5,6 @@ dependency:
     requirements-file: 'requirements.yml'
 driver:
   name: ${DRIVER_NAME:-docker}
-lint:
-  set -e
-  yamllint -c molecule/default/yamllint.yml .
-  ansible-lint molecule/default/converge.yml
 platforms:
   - name: "docker"
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-debian9}-ansible:latest"
