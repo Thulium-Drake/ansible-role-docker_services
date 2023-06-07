@@ -9,11 +9,11 @@
   register: 'swarm_info'
 
 - name: 'Set Swarm master IP fact'
-  set_fact:
+  ansible.builtin.set_fact:
     swarm_master_addr: "{{ ansible_facts['default_ipv4']['address'] }}"
 
 - name: 'Get worker IP'
-  setup:
+  ansible.builtin.setup:
     gather_subset: 'network'
   delegate_to: "{{ worker }}"
   delegate_facts: true

@@ -11,8 +11,11 @@
 
 
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     state: 'directory'
   loop:
     - 'peertube_data/config'
@@ -60,7 +63,7 @@
     user: null
 
 - name: 'Set trusted proxy list'
-  set_fact:
+  ansible.builtin.set_fact:
     peertube_trusted_proxies:
       - '127.0.0.0/8'
       - 'loopback'

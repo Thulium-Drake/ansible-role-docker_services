@@ -1,10 +1,11 @@
 ---
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir.name }}"
     owner: "{{ dir.owner | default('0') }}"
+    group: "{{ dir.owner | default('0') }}"
+    mode: '0750'
     state: 'directory'
-    mode: 0750
   loop:
     - {name: 'vaultwarden_data'}
   loop_control:

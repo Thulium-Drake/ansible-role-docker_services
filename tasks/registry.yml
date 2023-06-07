@@ -1,13 +1,16 @@
 ---
 - name: 'Install additional python packages'
-  package:
+  ansible.builtin.package:
     name:
       - 'python3-bcrypt'
       - 'python3-passlib'
 
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     state: 'directory'
   loop:
     - 'registry_data/data'
@@ -15,34 +18,35 @@
   loop_control:
     loop_var: 'dir'
 
-- block:
+- name: 'Ensure SSL certificate'
+  when: registry_selfsign
+  block:
     - name: 'Generate SSL key'
-      openssl_privatekey:
+      community.crypto.openssl_privatekey:
         path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
 
     - name: 'Generate SSL certificate request'
-      openssl_csr:
+      community.crypto.openssl_csr:
         path: "{{ docker_data_dir }}/registry_data/ssl/registry.csr"
         privatekey_path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
         common_name: "{{ registry_app_name }}"
 
     - name: 'Self-sign SSL certificate'
-      openssl_certificate:
+      community.crypto.openssl_certificate:
         path: "{{ docker_data_dir }}/registry_data/ssl/registry.crt"
         privatekey_path: "{{ docker_data_dir }}/registry_data/ssl/registry.key"
         csr_path: "{{ docker_data_dir }}/registry_data/ssl/registry.csr"
         provider: selfsigned
-  when: registry_selfsign
 
 - name: 'Create HTTP Basic auth file'
-  htpasswd:
+  ansible.builtin.htpasswd:
     path: "{{ docker_data_dir }}/registry_data/ssl/htpasswd"
     name: "{{ registry_username }}"
     password: "{{ registry_password }}"
     crypt_scheme: 'bcrypt'
     owner: 'root'
     group: 'root'
-    mode: 0640
+    mode: '0640'
   no_log: "{{ not docker_service_debug }}"
 
 - name: 'Deploy Docker Registry'

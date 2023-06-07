@@ -9,12 +9,13 @@
     name: 'traefik_backend'
   register: 'traefik_network_info'
 
-
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
     state: 'directory'
-    mode: 0755
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
   loop:
     - 'joplin_db'
   loop_control:

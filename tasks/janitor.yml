@@ -1,20 +1,23 @@
 ---
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
     state: 'directory'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
   loop:
     - 'janitor_data'
   loop_control:
     loop_var: 'dir'
 
 - name: 'Place files for Janitor'
-  template:
+  ansible.builtin.template:
     src: 'clean_docker.sh.j2'
     dest: "{{ docker_data_dir }}/janitor_data/clean_docker.sh"
-    mode: 0755
     owner: 'root'
     group: 'root'
+    mode: '0755'
 
 - name: 'Deploy Docker Janitor'
   community.docker.docker_swarm_service:

@@ -5,9 +5,11 @@
     driver: 'overlay'
 
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir.name }}"
     owner: "{{ dir.owner | default('0') }}"
+    group: "{{ dir.owner | default('0') }}"
+    mode: '0750'
     state: 'directory'
   loop:
     - {name: 'matomo_db', owner: '999'}
@@ -16,12 +18,12 @@
     loop_var: 'dir'
 
 - name: 'Check if config.ini.php is present'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/matomo_data/config.ini.php"
     state: 'touch'
     owner: '33'
     group: '33'
-    mode: 0644
+    mode: '0644'
     access_time: 'preserve'
     modification_time: 'preserve'
 

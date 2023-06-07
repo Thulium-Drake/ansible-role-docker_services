@@ -5,37 +5,44 @@
     driver: 'overlay'
 
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     state: 'directory'
   loop:
     - 'traefik_data'
   loop_control:
     loop_var: 'dir'
 
-- block:
+- name: 'Ensure SSL certifcate'
+  when: traefik_selfsign
+  block:
     - name: 'Generate SSL key'
-      openssl_privatekey:
+      community.crypto.openssl_privatekey:
         path: "{{ docker_data_dir }}/traefik_data/traefik.key"
 
     - name: 'Generate SSL certificate request'
-      openssl_csr:
+      community.crypto.openssl_csr:
         path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
         privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
         common_name: "*.{{ traefik_domain }}"
 
     - name: 'Self-sign SSL certificate'
-      openssl_certificate:
+      community.crypto.openssl_certificate:
         path: "{{ docker_data_dir }}/traefik_data/traefik.crt"
         privatekey_path: "{{ docker_data_dir }}/traefik_data/traefik.key"
         csr_path: "{{ docker_data_dir }}/traefik_data/traefik.csr"
         provider: selfsigned
-  when: traefik_selfsign
 
 - name: 'Deploy Traefik TOML config'
-  copy:
+  ansible.builtin.copy:
     src: 'traefik.toml'
     dest: "{{ docker_data_dir }}/traefik_data/traefik.toml"
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
 
 - name: 'Deploy Traefik'
   community.docker.docker_swarm_service:

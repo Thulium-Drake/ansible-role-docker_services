@@ -1,8 +1,10 @@
 ---
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir.name }}"
     owner: "{{ dir.owner | default('0') }}"
+    group: "{{ dir.owner | default('0') }}"
+    mode: '0755'
     state: 'directory'
   loop:
     - {name: 'avorion_server_data'}

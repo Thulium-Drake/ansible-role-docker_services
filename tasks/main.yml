@@ -1,21 +1,27 @@
 ---
 - name: 'Set up Docker Swarm'
-  include_tasks: 'docker_swarm.yml'
+  ansible.builtin.include_tasks: 'docker_swarm.yml'
 
 - name: 'Ensure .docker directory exists'
-  file:
+  ansible.builtin.file:
     path: '/root/.docker'
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     state: 'directory'
 
 - name: 'Ensure config.json exists'
-  file:
+  ansible.builtin.file:
     path: '/root/.docker/config.json'
     state: 'touch'
     access_time: 'preserve'
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     modification_time: 'preserve'
 
 - name: "Deploy services"
-  include_tasks: "{{ container }}.yml"
+  ansible.builtin.include_tasks: "{{ container }}.yml"
   loop: "{{ mandatory_services + enabled_services }}"
   loop_control:
     loop_var: 'container'

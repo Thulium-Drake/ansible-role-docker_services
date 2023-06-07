@@ -1,6 +1,6 @@
 ---
 - name: 'Set facts for Keycloak Gatekeeper'
-  set_fact:
+  ansible.builtin.set_fact:
     gatekeeper_app_name: 'appname'
     gatekeeper_client_id: 'appname'
     gatekeeper_client_secret: "{{ appname_gatekeeper_client_secret }}"

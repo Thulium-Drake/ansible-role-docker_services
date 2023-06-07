@@ -1,7 +1,10 @@
 ---
 - name: 'Create directory for container data'
-  file:
+  ansible.builtin.file:
     path: "{{ docker_data_dir }}/{{ dir }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0750'
     state: 'directory'
   loop:
     - 'db_backup_data'
@@ -9,10 +12,10 @@
     loop_var: 'dir'
 
 - name: 'Place files for DB Backup'
-  template:
+  ansible.builtin.template:
     src: 'db_backup.sh.j2'
     dest: "{{ docker_data_dir }}/db_backup_data/db_backup.sh"
-    mode: 0750
+    mode: '0750'
     owner: 'root'
     group: 'root'
 
