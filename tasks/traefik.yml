@@ -47,7 +47,7 @@
 - name: 'Deploy Traefik'
   community.docker.docker_swarm_service:
     name: 'traefik'
-    image: 'traefik'
+    image: 'traefik:{{ traefik_version }}'
     command:
       - '/usr/local/bin/traefik'
       - '--providers.docker'
